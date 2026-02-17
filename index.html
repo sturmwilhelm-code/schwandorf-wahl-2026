@@ -449,7 +449,8 @@ content = `
                         {n: "Andreas Weinmann", p: "SPD"},
                         {n: "Roland Kraus", p: "AfD"},
                         {n: "Kurt Mieschala", p: "UW"},
-                        {n: "Dieter Jäger", p: "Freie Wähler"}
+                        {n: "Dieter Jäger", p: "Freie Wähler"},
+                        {n: "Tobias Mainka", p: "Linke"}
                     ].map(c => `
                         <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
                             <div style="width:40px; height:40px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
@@ -467,7 +468,8 @@ content = `
                         {n: "Thomas Ebeling", p: "CSU"},
                         {n: "Marianne Schieder", p: "SPD"},
                         {n: "Thomas Borcuch", p: "AfD"},
-                        {n: "Christina Bauer", p: "UW"}
+                        {n: "Christina Bauer", p: "UW"},
+                        {n: "Diana Schulz", p: "Linke"}
                     ].map(c => `
                         <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
                             <div style="width:40px; height:40px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
@@ -508,7 +510,7 @@ content = `
                     <p style="margin-top: 15px;">Es werden keine Cookies oder Tracking-Tools (wie Google Analytics) verwendet.</p>
                 </div>`;
         }
-                
+
         document.getElementById("modal-text").innerHTML = content;
         document.getElementById("infoModal").classList.remove("hidden");
     }
