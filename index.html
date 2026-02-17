@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAD-O-Mat 2026 | Schwandorf wählt</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗳️</text></svg>">
+    
     <style>
         :root {
             --glass: rgba(255, 255, 255, 0.12);
@@ -12,13 +14,24 @@
             --text: #ffffff;
         }
 
+        @keyframes finish-glow {
+    0% { box-shadow: 0 0 15px var(--accent); transform: scaleY(1); }
+    50% { box-shadow: 0 0 30px #ffffff, 0 0 10px var(--accent); transform: scaleY(1.5); }
+    100% { box-shadow: 0 0 15px var(--accent); transform: scaleY(1); }
+}
+
+.progress-finished {
+    animation: finish-glow 0.8s ease-in-out 2;
+    background: #ffffff !important;
+}
+
         body {
             font-family: 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #004e92 0%, #000428 100%);
             background-attachment: fixed;
             color: var(--text);
             display: flex; 
-            flex-direction: column; /* Geändert für Footer-Ausrichtung */
+            flex-direction: column;
             align-items: center; 
             min-height: 100vh; 
             margin: 0; 
@@ -39,11 +52,30 @@
             margin-top: 40px;
             text-align: center;
             font-size: 0.8rem;
-            opacity: 0.6;
+            opacity: 0.8;
             width: 100%;
+            padding-bottom: 20px;
         }
-        footer a { color: white; text-decoration: none; margin: 0 10px; }
+        footer a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; }
         footer a:hover { color: var(--accent); }
+
+        .share-footer-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        .share-footer-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
 
         .nav-buttons { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
         .nav-btn {
@@ -77,10 +109,10 @@
             justify-content: center; z-index: 1000; backdrop-filter: blur(5px);
         }
         .modal-content { 
-            background: #004e92; padding: 40px; border-radius: 20px; 
+            background: #004e92; padding: 30px; border-radius: 20px; 
             max-width: 500px; width: 90%; position: relative; 
             border: 2px solid var(--accent); box-shadow: 0 0 30px rgba(0,210,255,0.3);
-            max-height: 80vh; overflow-y: auto;
+            max-height: 85vh; overflow-y: auto;
         }
         .close-modal { 
             position: absolute; top: 15px; right: 20px; font-size: 32px; 
@@ -92,7 +124,7 @@
             margin-bottom: 12px; padding: 12px 20px; border-radius: 16px; border: 1px solid var(--glass-border);
         }
         .party-logo { width: 45px; height: 45px; background: white; border-radius: 50%; margin-right: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
-        .party-logo img { width: 85%; height: auto; max-height: 85%; }
+        .party-logo img { width: 80%; height: 80%; max-height: 85%; }
         .party-info { flex-grow: 1; display: flex; justify-content: space-between; align-items: center; }
         .party-percent { font-size: 1.2rem; color: var(--accent); font-weight: 800; }
         .restart-btn { width: 100%; padding: 18px; border-radius: 16px; border: none; background: var(--accent); color: #000428; font-weight: 800; cursor: pointer; margin-top: 25px; }
@@ -132,12 +164,31 @@
 </div>
 
 <footer>
+    <div style="margin-bottom: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <button onclick="shareApp()" class="share-footer-btn">
+            <span>📲</span> SAD-O-Mat weiterempfehlen
+        </button>
+    </div>
     <a href="javascript:void(0)" onclick="openInfo('impressum')">Impressum</a> | 
     <a href="javascript:void(0)" onclick="openInfo('datenschutz')">Datenschutz</a>
-    <p>&copy; 2026 SAD-O-Mat | Unabhängiges Wahl-Informationsprojekt</p>
+    <p style="margin-top:15px;">&copy; 2026 SAD-O-Mat | Ein privates Informationsprojekt</p>
+    <p style="font-size: 0.7rem; opacity: 0.5;">Made with ❤️ in Schwandorf</p>
 </footer>
 
 <script>
+    //Links Wahlprogramme
+    const partyLinks = {
+    'CSU': 'https://www.csu.de/verbaende/ov/schwandorf/oberbuergermeisterwahl/',
+    'SPD': 'https://spd-schwandorf.de/workspace/media/static/spd_wahlprogramm-6903cf2746d88.pdf',
+    'UW': 'https://uw-schwandorf.de/programm-2020/',
+    'Grüne': 'https://gruene-schwandorf.de/kommunalwahl-2026-2/',
+    'Bürgerliste': 'https://www.xn--brgerliste-schwandorf-8hc.de/programm/',
+    'ÖDP': 'https://www.oedp-oberpfalz.de/wahlen/kommunalwahlen-2026',
+    'AfD': 'https://www.facebook.com/afd.schwandorf.cham/?locale=de_DE',
+    'Freie Wähler': 'https://www.facebook.com/freiewaehlerschwandorf/?locale=de_DE',
+    'Linke': 'https://www.die-linke-mittlere-oberpfalz.de/kommunalwahlen-2026/programm-und-kandidatinnen-im-landkreis-schwandorf/programm-fuer-den-landkreis-schwandorf/'
+};
+    //PArteilogos
     const partyLogos = {
         "CSU": "https://upload.wikimedia.org/wikipedia/commons/e/ee/CSU_Logo_since_2016.svg",
         "SPD": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Sozialdemokratische_Partei_Deutschlands%2C_Logo_um_2000.svg",
@@ -150,46 +201,176 @@
         "UW": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBXji9lwwNK7RsM5KXKwLmetDhF27zpG18hA&s"
     };
 
-    const candidateImages = {
-        "Andreas Feller": "https://scontent-fra5-1.xx.fbcdn.net/v/t51.82787-15/625552577_17858011146603883_4579170736775887222_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=KY5YxrAAh7kQ7kNvwGBGyEQ&_nc_oc=AdklQ3CJCqmxRgJRbz620Tiv_Nwo6h1ihpI-Kh2h8s6GkMYn5dsWjuJ8WAGlG_Pk94MgLr3T_-8j5JOO29r6Pqg_&_nc_zt=23&_nc_ht=scontent-fra5-1.xx&_nc_gid=zaqx_0aZy3L77QZZwXCygg&oh=00_AftnOKC6xaIGtPMv_JQrCBImnQDOu5CQmNIDlo5pza3IZQ&oe=6998F0F1",
-        "Andreas Wopperer": "https://scontent-fra3-1.xx.fbcdn.net/v/t39.30808-6/602905686_1288876809949746_8817866564158500657_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=0jEW1zkiz_wQ7kNvwH7sxBR&_nc_oc=Adlt5Iox25ZbxOWCgj4sBZ2Ns9S6oTtKvRWJmY37vrEsVywlG0bcKeJTkTui9j_aAjoW9M0Qy4jN1TobNBrrvJUL&_nc_zt=23&_nc_ht=scontent-fra3-1.xx&_nc_gid=-XOYFp9RSR_jAKTOhf9_Kw&oh=00_Afuc6N6Xq76t9iSdVC2xG6JbOQaBuNY3wMBHb4Tu6IGt3g&oe=6998D131",
-        "Andreas Weinmann": "https://scontent-fra5-2.xx.fbcdn.net/v/t39.30808-6/600339881_1307877144719201_5100037300189176464_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_ohc=FJap0NCALA0Q7kNvwF7DgG1&_nc_oc=Adn4MlrAJDQJvA-vlmE4CDEB_62ccGLmbMI24h65vsX0EmO4Z0Rk2zNAojQZ6W5nxWBK28CG6TjTqpFtG7L9_idV&_nc_zt=23&_nc_ht=scontent-fra5-2.xx&_nc_gid=wXumov_FXGsvt708vW05Yw&oh=00_AfsP6-1uCF20rcu3u-IClTCGy06AVZvY_lBOAmUAKka3Dg&oe=6998ED54",
-        "Roland Kraus": "https://via.placeholder.com/100", 
-        "Kurt Mieschala": "https://scontent-fra3-2.xx.fbcdn.net/v/t39.30808-6/615826718_1205863581718493_9011763735735064417_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_ohc=A2y3DaN3JLsQ7kNvwESrQnf&_nc_oc=Adnjfe4OhSBv_mYkR67g4-7JlcK1Cx10jvu4getvKdww29iChxeG1mBHllAv0bfkQadZeBLxYLgo0iyuMeehK9-k&_nc_zt=23&_nc_ht=scontent-fra3-2.xx&_nc_gid=m62THW9zWssnlhnC44vyIA&oh=00_AftzoTIZPZN9z68akQ8dLRArueqzJ0ILN6NfRlLaIcyQtA&oe=6998E680",
-        "Tobias Mainka": "https://via.placeholder.com/100", 
-        "Dieter Jäger": "https://scontent-fra3-1.xx.fbcdn.net/v/t51.82787-15/624821903_18140741785468238_1790416544595265020_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=tTUOOVjqVJAQ7kNvwEKr_fy&_nc_oc=AdmeTykZoLjyvRqpqB5Ilf2csxcb7G_rS0u_P4k6BVXJl_NywseGrMbAD-WI61rgnO4fSJlh7ul88JEiXXo7xjON&_nc_zt=23&_nc_ht=scontent-fra3-1.xx&_nc_gid=Zi69Uz3AMigvOnUS8_06Bw&oh=00_Afs0kealphvmfdk4fLtQj9IMLko-GIBEDLcGHWuOqGgKNg&oe=6998CCA2"
-    };
+    // Fragen, Antworten und Zuteilung
+    const questions = 
+    [
 
-    const questions = [
-        { text: "Wohnraum: Wie bekämpfen wir den Mangel an bezahlbarem Wohnraum?", options: [{ text: "Städtische Wohnungsbaugesellschaft für sozialen Wohnbau gründen.", parties: ["SPD", "Linke"] }, { text: "Neue Baugebiete ausweisen und Familien beim Kauf fördern.", parties: ["CSU", "Freie Wähler"] }, { text: "Baulücken schließen statt neue Flächen versiegeln.", parties: ["Bürgerliste", "UW", "Grüne", "ÖDP"] }, { text: "Bürokratie für private Bauherren abbauen.", parties: ["AfD"] }] },
-        { text: "Umwelt: Welchen Fokus setzen wir beim Klimaschutz vor Ort?", options: [{ text: "PV-Pflicht auf städtischen Gebäuden & Fernwärme-Ausbau.", parties: ["SPD", "Grüne", "ÖDP"] }, { text: "Renaturierung der Naab & historische Wasserräder.", parties: ["CSU", "Bürgerliste", "ÖDP"] }, { text: "Mehr Bäume und Trinkbrunnen am Markt (Hitzeschutz).", parties: ["Grüne", "Linke", "UW"] }, { text: "Priorität auf Hochwasserschutz in den Ortsteilen.", parties: ["Freie Wähler", "AfD"] }] },
-        { text: "Freizeit: Was ist die wichtigste Investition in unsere Infrastruktur?", options: [{ text: "Bau einer neuen Dreifachturnhalle für Schulen & Vereine.", parties: ["CSU", "SPD", "UW"] }, { text: "Sanierung des Sepp-Simon-Stadions (freier Zugang).", parties: ["SPD", "Linke"] }, { text: "Erhalt der Bäder bei stabilen Eintrittspreisen.", parties: ["CSU", "Freie Wähler", "UW", "SPD", "ÖDP"] }, { text: "Förderung alternativer Kultur- & Jugendangebote.", parties: ["Grüne", "Bürgerliste", "Linke"] }] },
-        { text: "Wirtschaft: Wie stärken wir den Standort Schwandorf nachhaltig?", options: [{ text: "Industrie-Ansiedlung auf dem BBI-Gelände forcieren.", parties: ["SPD", "CSU"] }, { text: "Ansiedlung einer OTH-Zweigstelle für Hochschulbildung.", parties: ["Bürgerliste", "SPD", "Freie Wähler", "Grüne"] }, { text: "Regionale Wirtschaft & lokales Handwerk fördern.", parties: ["Freie Wähler", "AfD", "ÖDP", "CSU"] }, { text: "Vollständige digitale Gewerbe-Verwaltung im Rathaus.", parties: ["CSU", "Bürgerliste"] }] },
-        { text: "Innenstadt: Wie beleben wir den Marktplatz?", options: [{ text: "Dauerhafte Fußgängerzone zur Steigerung der Gastro-Qualität.", parties: ["SPD", "Grüne", "ÖDP", "Linke"] }, { text: "Erreichbarkeit erhalten ('Shared Space') mit Parkplätzen.", parties: ["CSU", "Freie Wähler", "AfD"] }, { text: "Pop-up-Stores & Zwischennutzung in Leerständen.", parties: ["CSU", "Bürgerliste", "Grüne"] }, { text: "Digitales Parkleitsystem statt Parkplatz-Abbau.", parties: ["Bürgerliste", "UW"] }] },
-        { text: "Digitalisierung: Wie modern soll unsere Verwaltung werden?", options: [{ text: "Rathaus vollständig online ('Papierloses Rathaus').", parties: ["CSU", "SPD", "Bürgerliste"] }, { text: "Erhalt analoger Bürgerbüros in den Ortsteilen.", parties: ["Freie Wähler", "UW", "SPD", "ÖDP"] }, { text: "Stadtratssitzungen transparent live im Internet.", parties: ["Bürgerliste", "Grüne", "Linke", "ÖDP"] }, { text: "Datenschutz priorisieren; kein Digitalzwang.", parties: ["AfD"] }] },
-        { text: "Familie: Wo ist der größte Handlungsbedarf?", options: [{ text: "Kostenfreie Ganztagsbetreuung in Kitas & Schulen.", parties: ["SPD", "Grüne", "Linke"] }, { text: "Erhalt des Kinderzuschusses beim Grundstückskauf.", parties: ["CSU", "SPD"] }, { text: "Barrierefreier Umbau & seniorengerechtes Wohnen.", parties: ["UW", "CSU", "Bürgerliste", "ÖDP", "Linke"] }, { text: "Schutz des klassischen Familienbildes.", parties: ["AfD"] }] },
-        { text: "Ehrenamt: Wie stärken wir die Bürgerbeteiligung?", options: [{ text: "Vorteile der Ehrenamtskarte (z.B. Freibad) ausbauen.", parties: ["CSU", "Freie Wähler"] }, { text: "Erhöhung der direkten Sport- und Vereinsförderung.", parties: ["SPD", "UW", "CSU"] }, { text: "Stimmberechtigtes Jugendparlament & Bürger-Budgets.", parties: ["Grüne", "UW", "ÖDP", "Linke", "Bürgerliste"] }, { text: "Bürokratieabbau bei Vereinsfesten & Haftung.", parties: ["CSU", "AfD", "Freie Wähler"] }] },
-        { text: "Verkehr: Wie sieht die Mobilität der Zukunft aus?", options: [{ text: "Bahnhalte Klardorf & Berufsschule reaktivieren.", parties: ["SPD", "Grüne", "Linke", "ÖDP"] }, { text: "Lückenloses Radwegenetz zwischen allen Ortsteilen.", parties: ["UW", "Grüne", "CSU", "ÖDP"] }, { text: "Fokus auf Straßensanierung & flüssigen Autoverkehr.", parties: ["AfD", "Freie Wähler", "CSU"] }, { text: "On-Demand-Rufbusse für die Ortsteile einführen.", parties: ["Freie Wähler", "SPD", "Bürgerliste"] }] }
+        //Frage 1
+        { 
+    text: "🏠 Wohnraum: Wie bekämpfen wir den Mangel an bezahlbarem Wohnraum?", 
+    options:    [
+            { text: "Wohnen als Grundrecht: Mietkautionsfonds & Verbot von Strom-/Wassersperren.",              parties: ["Linke"] },
+            { text: "Neue Baugebiete im Stadtgebiet & Vergabe durch Einheimischenmodell.",                      parties: ["CSU", "Freie Wähler"] },
+            { text: "Städtische Wohnungsbaugesellschaft für Sozialwohnungen & Barrierefreiheit.",               parties: ["SPD", "Linke"] },
+            { text: "Lückenschlüsse forcieren & Grundsteuer C gegen Grundstücksspekulation.",                   parties: ["Bürgerliste", "Grüne", "ÖDP"] },
+            { text: "Mietpreisbremse verschärfen & Leerstand durch Satzungen bekämpfen.",                       parties: ["Grüne", "SPD"] },
+            { text: "Bürokratie für Bauherren abbauen & Grunderwerbsteuer senken.",                             parties: ["AfD", "UW"] }
+                ] 
+        },
+
+        //Frage 2
+        { 
+    text: "🌳 Umwelt: Welchen Fokus setzen wir beim Klimaschutz vor Ort?", 
+    options:    [
+            { text: "Bürger-Energiegenossenschaften fördern & Balkonkraftwerke bezuschussen.",                  parties: ["Linke", "Grüne"] },
+            { text: "Historische Wasserräder reaktivieren & ökologische Aufwertung der Naab.",                  parties: ["Bürgerliste", "ÖDP"] },
+            { text: "Schwammstadt-Prinzip: Entsiegelung fördern & Renaturierung von Mooren.",                   parties: ["Grüne", "Linke"] },
+            { text: "Priorität auf zügigen Hochwasserschutz an Naab und Vils.",                                 parties: ["CSU", "AfD"] },
+            { text: "Initiative '1000 Bäume für Schwandorf' & regionale Landwirtschaft stärken.",               parties: ["SPD", "Freie Wähler"] },
+            { text: "Dezentrale Energieversorgung & Nahwärmenetze in den Ortsteilen fördern.",                  parties: ["UW", "ÖDP"] }
+                ] 
+        },  
+
+        //Frage 3
+        { 
+    text: "🏀 Freizeit: Was ist die wichtigste Investition in unsere Infrastruktur?", 
+    options:    [
+            { text: "Sanierung des Sepp-Simon-Stadions & effiziente Nutzung der Anlage.",                       parties: ["SPD", "CSU"] },
+            { text: "Bau einer Dreifachturnhalle & Einrichtung eines Sportamts im Rathaus.",                    parties: ["UW", "SPD"] },
+            { text: "Zusätzlicher Kunstrasenplatz & Modernisierung der Bolzplätze.",                            parties: ["Bürgerliste", "Freie Wähler"] },
+            { text: "Umbau des Lokschuppens zum barrierefreien Kulturzentrum.",                                 parties: ["Bürgerliste", "Grüne"] },
+            { text: "Konsumfreie Flächen & selbstverwaltete Jugendzentren fördern.",                            parties: ["Linke", "Grüne"] },
+            { text: "Stabile Preise für Bäder & Förderung von Inklusions- und Rollstuhlsport.",                 parties: ["Linke", "ÖDP", "AfD"] }
+                ] 
+        },        
+
+        //Frage 4
+        { 
+    text: "💼 Wirtschaft: Wie stärken wir den Standort Schwandorf nachhaltig?", 
+    options:    [
+            { text: "Industrie-Ansiedlung am BBI-Gelände & interkommunale Gebiete ausbauen.",                   parties: ["CSU", "Bürgerliste"] },
+            { text: "Öffentliche Aufträge nur an Unternehmen mit Tarifbindung vergeben.",                       parties: ["Linke", "SPD"] },
+            { text: "Ansiedlung einer OTH-Zweigstelle, um Fachkräfte in der Stadt zu halten.",                  parties: ["Bürgerliste", "Grüne"] },
+            { text: "Regionales Handwerk & Mittelstand bei der Auftragsvergabe bevorzugen.",                    parties: ["Freie Wähler", "UW"] },
+            { text: "Start-up-Zentrum in Leerständen fördern & Gemeinwohl-Ökonomie stärken.",                   parties: ["Grüne", "ÖDP"] },
+            { text: "Gewerbesteuer stabil halten & Bürokratie für Firmengründer abbauen.",                      parties: ["AfD", "CSU", "UW"] }
+                ] 
+        }, 
+    
+        //Frage 5
+        { 
+    text: "🏘️ Innenstadt: Wie beleben wir den Marktplatz?", 
+    options:    [
+            { text: "Dauerhafte Fußgängerzone für mehr Gastro- & Aufenthaltsqualität.",                         parties: ["SPD", "ÖDP"] },
+            { text: "Autofreundliche Innenstadt: Parkplätze & digitale Leitsysteme erhalten.",                  parties: ["AfD", "Freie Wähler", "CSU"] },
+            { text: "Kommunalen Gewerbemietendeckel prüfen, um lokale Läden zu schützen.",                      parties: ["Linke"] },
+            { text: "Leerstände durch Pop-up-Stores & Umzug der Stadtbibliothek bekämpfen.",                    parties: ["Bürgerliste", "SPD", "UW"] },
+            { text: "Mehr konsumfreie Zonen, Sitzbänke & Trinkbrunnen am Marktplatz.",                          parties: ["Linke", "Grüne"] },
+            { text: "Einkaufsatmosphäre durch Stadtgrün & attraktive Abendmärkte stärken.",                     parties: ["Freie Wähler", "UW", "AfD"] }
+                ] 
+        },
+
+        //Frage 6
+        { 
+    text: "💻 Digitalisierung: Wie modern soll unsere Verwaltung werden?", 
+    options:    [
+            { text: "Vollständiges Online-Rathaus: Alle Anträge digital von zuhause erledigen.",                parties: ["CSU", "SPD", "Freie Wähler"] },
+            { text: "Recht auf analoges Leben: Persönliche Ansprechpartner & Papier-Formulare erhalten.",       parties: ["AfD", "ÖDP"] },
+            { text: "Ausbau des 'Digitalen Zwillings' zur besseren Steuerung von Verkehr & Ressourcen.",        parties: ["UW", "Bürgerliste"] },
+            { text: "Glasfaser-Ausbau in allen Ortsteilen & Schließung von Funklöchern forcieren.",             parties: ["CSU", "Bürgerliste", "Freie Wähler"] },
+            { text: "Vorrang für Open-Source-Software & strengster Datenschutz in der Verwaltung.",             parties: ["ÖDP", "Grüne", "Linke"] },
+            { text: "Dauerhafte Garantie für Bargeldzahlung in allen städtischen Einrichtungen.",               parties: ["AfD", "UW"] }
+                ] 
+        },
+    
+        //Frage 7
+        { 
+    text: "👨‍👩‍👧‍👦 Familie: Wo ist der größte Handlungsbedarf?", 
+    options:    [
+            { text: "Kostenloses Mittagessen in Kitas & Schulen sowie mehr Ferienbetreuung.",                   parties: ["Linke", "SPD"] },
+            { text: "Durchsetzung eines Mittelschulkonzepts & Erhalt kleiner Grundschulen.",                    parties: ["Bürgerliste", "CSU", "Freie Wähler"] },
+            { text: "Inklusive Spielplätze, Einstiegshilfen in Bäder & mehr öffentliche WCs.",                  parties: ["ÖDP", "Linke", "Grüne"] },
+            { text: "Stärkere Förderung von Mehrkindfamilien & Anerkennung der Erziehungsleistung.",            parties: ["AfD", "CSU"] },
+            { text: "Barrierefreies Wohnen für Senioren & Aufbau von Nachbarschaftszentren.",                   parties: ["UW", "ÖDP", "Freie Wähler"] },
+            { text: "Kitaplätze für Schichtarbeitende & Förderung von Jugendprojekten.",                        parties: ["Grüne", "SPD", "AfD"] }
+                ] 
+        }, 
+    
+        //Frage 8
+        { 
+    text: "🤝 Ehrenamt: Wie stärken wir die Bürgerbeteiligung in Schwandorf?", 
+    options:    [
+            { text: "SAD-Pass für Ehrenamtliche: Freier ÖPNV & vergünstigte Freizeitangebote.",                 parties: ["Linke", "SPD"] },
+            { text: "Bürgerhaushalt einführen: Bürger entscheiden direkt über ein festes Budget.",              parties: ["UW", "ÖDP", "Grüne"] },
+            { text: "Servicestelle im Rathaus: Vereine bei Bürokratie & Haftung aktiv unterstützen.",           parties: ["CSU", "Freie Wähler"] },
+            { text: "Jährlicher 'Tag des Ehrenamts' & finanzielle Soforthilfe für Vereine.",                    parties: ["Bürgerliste", "CSU"] },
+            { text: "Online-Petitionstool 'openDemokratie' auf der Stadtseite fest integrieren.",               parties: ["Bürgerliste", "UW"] },
+            { text: "Bürgerentscheide erleichtern & zufällig geloste Bürgerräte einberufen.",                   parties: ["ÖDP", "Grüne", "AfD"] }
+                ] 
+        }, 
+
+        //Frage 9       
+        { 
+    text: "🚲 Verkehr: Wie sieht die Mobilität der Zukunft in Schwandorf aus?", 
+    options:    [
+            { text: "Bahnhalt Klardorf reaktivieren & Zugverbindung nach Regensburg stärken.",                  parties: ["UW", "Freie Wähler"] },
+            { text: "Kostenloses Kurzzeitparken erhalten & Erreichbarkeit der City sichern.",                   parties: ["AfD", "Freie Wähler", "CSU"] },
+            { text: "Lückenloses Radwegenetz ausbauen & sichere Stellplätze am Bahnhof.",                       parties: ["ÖDP", "Bürgerliste"] },
+            { text: "Flexible Rufbusse für alle Ortsteile (On-Demand-System) einführen.",                       parties: ["Bürgerliste", "UW"] },
+            { text: "Verkehrsberuhigung in Wohnvierteln & sichere Schulwege priorisieren.",                     parties: ["SPD", "CSU"] },
+            { text: "Ausbau öffentlicher E-Ladestellen & Förderung von Carsharing-Modellen.",                   parties: ["AfD", "ÖDP"] }
+                ] 
+        }, 
+    
+        //Frage 10
+        { 
+    text: "🍺 Schmidt-Bräu-Areal: Wie soll dieses Gelände genutzt werden?", 
+    options:    [
+            { text: "Kulturzentrum: Neubau für VHS, Musikschule & Bürgersaal.",                             parties: ["CSU", "SPD", "UW"] },
+            { text: "Sozialer Wohnungsbau: Fokus auf bezahlbaren Raum & Genossenschaften.",                 parties: ["Linke", "Grüne"] },
+            { text: "Grüne Oase: Den Bereich unverbaut als Erholungsfläche nutzen.",                        parties: ["ÖDP", "Bürgerliste"] },
+            { text: "Parksituation verbessern: Bau einer Tiefgarage unter dem Areal.",                      parties: ["AfD", "Freie Wähler"] },
+            { text: "Identität wahren: Bestehende historische Gebäude sanieren statt abreißen.",            parties: ["ÖDP", "UW"] },
+            { text: "Inhabergeführter Handel: Kleinteilige Läden statt großer Ketten.",                     parties: ["Bürgerliste", "Freie Wähler"] }
+                ] 
+        },
+
+        //Frage 11
+        { 
+    text: "🏥 Gesundheit: Wie sichern wir die medizinische Versorgung 2026?", 
+    options:    [
+            { text: "Klinik-Rekommunalisierung: Krankenhäuser zurück in öffentliche Hand.",                 parties: ["Linke", "SPD"] },
+            { text: "Landarzt-Offensive: Mobile Teams & Förderung für Praxen im Umland.",                   parties: ["Freie Wähler", "AfD"] },
+            { text: "Hebammen-Offensive: Festanstellung & bessere Bezahlung im Kreißsaal.",                 parties: ["Linke", "SPD"] },
+            { text: "Psychische Gesundheit: Eigene Fachstation im Landkreis einrichten.",                   parties: ["AfD"] },
+            { text: "Ärztliche Versorgung: Bürokratieabbau für niedergelassene Ärzte.",                     parties: ["Freie Wähler"] },
+            { text: "Sicherung der Notfallversorgung: Erhalt aller Klinik-Standorte.",                      parties: ["SPD", "Linke", "AfD", "Freie Wähler"] }
+                ] 
+        }
     ];
 
-    let scores = { "CSU": 0, "SPD": 0, "Bürgerliste": 0, "UW": 0, "Linke": 0, "Grüne": 0, "AfD": 0, "Freie Wähler": 0, "ÖDP": 0 };
+    let scores =            { "CSU": 0, "SPD": 0, "Bürgerliste": 0, "UW": 0, "Linke": 0, "Grüne": 0, "AfD": 0, "Freie Wähler": 0, "ÖDP": 0 };
     let currentStep = 0;
 
     function loadQuestion() {
-        const q = questions[currentStep];
-        document.getElementById("question-text").innerText = q.text;
-        document.getElementById("step-counter").innerText = `Frage ${currentStep + 1} von ${questions.length}`;
-        document.getElementById("progress-bar").style.width = `${((currentStep) / questions.length) * 100}%`;
-        const container = document.getElementById("options-container");
-        container.innerHTML = "";
-        q.options.forEach(opt => {
-            const div = document.createElement("div");
-            div.className = "option-card";
-            div.innerText = opt.text;
-            div.onclick = () => selectOption(opt.parties);
-            container.appendChild(div);
-        });
-    }
+    const q = questions[currentStep];
+    document.getElementById("question-text").innerText = q.text;
+    document.getElementById("step-counter").innerText = `Frage ${currentStep + 1} von ${questions.length}`;
+    
+    const progressPercent = (currentStep / questions.length) * 100;
+    const progressBar = document.getElementById("progress-bar");
+    progressBar.style.width = `${progressPercent}%`;
+    
+    const container = document.getElementById("options-container");
+    container.innerHTML = "";
+    q.options.forEach(opt => {
+        const div = document.createElement("div");
+        div.className = "option-card";
+        div.innerText = opt.text;
+        div.onclick = () => selectOption(opt.parties);
+        container.appendChild(div);
+    });
+}
 
     function selectOption(parties) {
         parties.forEach(p => scores[p]++);
@@ -198,9 +379,15 @@
     }
 
     function showResults() {
+    const progressBar = document.getElementById("progress-bar");
+    progressBar.style.width = "100%";
+    progressBar.classList.add("progress-finished");
+
+    setTimeout(() => {
         document.getElementById("quiz-step").classList.add("hidden");
         const resultsDiv = document.getElementById("results");
         resultsDiv.classList.remove("hidden");
+        
         const list = document.getElementById("score-list");
         const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
         list.innerHTML = sorted.map(([party, score]) => {
@@ -210,115 +397,89 @@
                 <div class="party-info"><span style="font-weight:700">${party}</span><span class="party-percent">${percentage}%</span></div>
             </div>`;
         }).join("");
+    }, 600); 
+}
+
+    function shareApp() {
+        const shareData = {
+            title: 'SAD-O-Mat 2026',
+            text: 'Ich habe gerade den SAD-O-Mat ausprobiert – eine super Orientierungshilfe für die Wahl in Schwandorf. Schau es dir auch mal an!',
+            url: window.location.href
+        };
+        if (navigator.share) {
+            navigator.share(shareData).catch(err => console.log("Fehler beim Teilen:", err));
+        } else {
+            navigator.clipboard.writeText(shareData.url);
+            alert("Der Link zur App wurde kopiert!");
+        }
     }
 
     function openInfo(type) {
         let content = "";
-        if(type === 'prog') {
-            content = `
-                <h2>Wahlprogramme 2026</h2>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center;">
-                    <a href="https://www.csu.de/verbaende/ov/schwandorf/oberbuergermeisterwahl/" target="_blank" style="text-decoration:none; color:white; display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
-                        <div style="width:50px; height:50px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                            <img src="${partyLogos['CSU']}" style="width:80%; height:auto;">
-                        </div>
-                        <span style="font-size:0.75rem; font-weight:bold;">CSU</span>
-                    </a>
-                    <a href="https://spd-schwandorf.de/wahlen/" target="_blank" style="text-decoration:none; color:white; display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
-                        <div style="width:50px; height:50px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                            <img src="${partyLogos['SPD']}" style="width:80%; height:auto;">
-                        </div>
-                        <span style="font-size:0.75rem; font-weight:bold;">SPD</span>
-                    </a>
-                    <a href="https://uw-schwandorf.de/programm-2020/" target="_blank" style="text-decoration:none; color:white; display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
-                        <div style="width:50px; height:50px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                            <img src="${partyLogos['UW']}" style="width:80%; height:auto;">
-                        </div>
-                        <span style="font-size:0.75rem; font-weight:bold;">UW</span>
-                    </a>
-                    <a href="https://gruene-schwandorf.de/kommunalwahl-2026-2/" target="_blank" style="text-decoration:none; color:white; display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
-                        <div style="width:50px; height:50px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                            <img src="${partyLogos['Grüne']}" style="width:80%; height:auto;">
-                        </div>
-                        <span style="font-size:0.75rem; font-weight:bold;">Grüne</span>
-                    </a>
-                    <a href="https://www.xn--brgerliste-schwandorf-8hc.de/programm/" target="_blank" style="text-decoration:none; color:white; display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
-                        <div style="width:50px; height:50px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                            <img src="${partyLogos['Bürgerliste']}" style="width:80%; height:auto;">
-                        </div>
-                        <span style="font-size:0.75rem; font-weight:bold;">Bürgerliste</span>
-                    </a>
-                    <a href="https://www.oedp-schwandorf.de" target="_blank" style="text-decoration:none; color:white; display:flex; flex-direction:column; align-items:center; gap:8px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
-                        <div style="width:50px; height:50px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                            <img src="${partyLogos['ÖDP']}" style="width:80%; height:auto;">
-                        </div>
-                        <span style="font-size:0.75rem; font-weight:bold;">ÖDP</span>
-                    </a>
-                </div>`;
 
-//Oberbürgermeister
+        if(type === 'prog') {
+content = `
+    <h2 style="margin-bottom:20px;">Wahlprogramme & Quellen 2026</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center;">
+        ${['CSU', 'SPD', 'UW', 'Grüne', 'Bürgerliste', 'ÖDP', 'AfD', 'Freie Wähler', 'Linke'].map(p => `
+            <a href="${partyLinks[p]}" target="_blank" style="text-decoration:none; color:inherit;">
+                <div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:12px; transition: transform 0.2s; cursor:pointer;" 
+                     onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="width:45px; height:45px; background:white; border-radius:50%; margin: 0 auto 8px auto; display:flex; align-items:center; justify-content:center; overflow:hidden; border: 2px solid rgba(255,255,255,0.2);">
+                        <img src="${partyLogos[p] || 'https://via.placeholder.com/40'}" style="width:80%; height:auto;" alt="${p}">
+                    </div>
+                    <span style="font-size:0.7rem; font-weight:bold; display:block; line-height:1;">${p}</span>
+                    <span style="font-size:0.55rem; opacity:0.6;">Programm ↗</span>
+                </div>
+            </a>
+        `).join('')}
+    </div>
+    <p style="font-size:0.75rem; margin-top:20px; opacity:0.7; text-align:center; line-height:1.4;">
+        Die Inhalte basieren auf den offiziellen Programmen zur Kommunalwahl am 08. März 2026.<br>
+        <strong>Klicken Sie auf ein Logo, um das volle Programm zu lesen.</strong>
+    </p>`;
 
         } else if(type === 'ob') {
             content = `
-                <h2>OB-Wahl Schwandorf 2026</h2>
-                <p style="margin-bottom:20px;">Die Kandidaten für das Amt des Oberbürgermeisters:</p>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; text-align: left;">
+                <h2>OB-Kandidaten 2026</h2>
+                <div style="display: grid; gap: 10px; text-align: left;">
                     ${[
-                        {name: "Andreas Feller", party: "Bürgerliste"},
-                        {name: "Andreas Wopperer", party: "CSU"},
-                        {name: "Andreas Weinmann", party: "SPD"},
-                        {name: "Roland Kraus", party: "AfD"},
-                        {name: "Kurt Mieschala", party: "UW"},
-                        {name: "Tobias Mainka", party: "Linke"},
-                        {name: "Dieter Jäger", party: "FW"}
-                    ].map(cand => `
-                        <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.1); padding:12px; border-radius:16px; border: 1px solid var(--glass-border);">
-                            <div style="width:50px; height:50px; flex-shrink:0; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; padding:5px; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
-                                <img src="${partyLogos[cand.party] || partyLogos['Sonstige']}" style="max-width:90%; max-height:90%; object-fit:contain;">
+                        {n: "Andreas Feller", p: "Bürgerliste"},
+                        {n: "Andreas Wopperer", p: "CSU"},
+                        {n: "Andreas Weinmann", p: "SPD"},
+                        {n: "Roland Kraus", p: "AfD"},
+                        {n: "Kurt Mieschala", p: "UW"},
+                        {n: "Dieter Jäger", p: "Freie Wähler"}
+                    ].map(c => `
+                        <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
+                            <div style="width:40px; height:40px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
+                                <img src="${partyLogos[c.p]}" style="width:80%;">
                             </div>
-                            <div>
-                                <span style="display:block; font-weight:bold; font-size:0.95rem; line-height:1.2;">${cand.name}</span>
-                                <span style="font-size:0.75rem; opacity:0.8;">${cand.party}</span>
-                            </div>
+                            <div><span style="font-weight:bold; display:block;">${c.n}</span><span style="font-size:0.75rem; opacity:0.7;">${c.p}</span></div>
                         </div>
                     `).join('')}
-                </div>
-                <div style="margin-top:15px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.2); font-size:0.7rem; opacity:0.6;">
-                    Quelle: <a href="https://www.mittelbayerische.de/wahlen/kommunalwahl-bayern-2026/landkreis-schwandorf" target="_blank" style="color:var(--accent); text-decoration:none;">MZ Wahlticker</a>
                 </div>`;
-
-//Landrat
-
         } else if(type === 'land') {
             content = `
                 <h2>Landratswahl 2026</h2>
-                <p style="margin-bottom:20px;">Die Kandidaten für den Landkreis Schwandorf:</p>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; text-align: left;">
+                <div style="display: grid; gap: 10px; text-align: left;">
                     ${[
-                        {name: "Thomas Ebeling", party: "CSU"},
-                        {name: "Marianne Schieder", party: "SPD"},
-                        {name: "Thomas Borcuch", party: "AfD"},
-                        {name: "Christina Bauer", party: "UW"},
-                        {name: "Diana Schulz", party: "Linke"}
-                    ].map(cand => `
-                        <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.1); padding:12px; border-radius:16px; border: 1px solid var(--glass-border);">
-                            <div style="width:50px; height:50px; flex-shrink:0; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; padding:5px; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
-                                <img src="${partyLogos[cand.party] || partyLogos['Sonstige']}" style="max-width:90%; max-height:90%; object-fit:contain;">
+                        {n: "Thomas Ebeling", p: "CSU"},
+                        {n: "Marianne Schieder", p: "SPD"},
+                        {n: "Thomas Borcuch", p: "AfD"},
+                        {n: "Christina Bauer", p: "UW"}
+                    ].map(c => `
+                        <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
+                            <div style="width:40px; height:40px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
+                                <img src="${partyLogos[c.p]}" style="width:80%;">
                             </div>
-                            <div>
-                                <span style="display:block; font-weight:bold; font-size:0.95rem; line-height:1.2;">${cand.name}</span>
-                                <span style="font-size:0.75rem; opacity:0.8;">${cand.party}</span>
-                            </div>
+                            <div><span style="font-weight:bold; display:block;">${c.n}</span><span style="font-size:0.75rem; opacity:0.7;">${c.p}</span></div>
                         </div>
                     `).join('')}
-                </div>
-                <div style="margin-top:15px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.2); font-size:0.7rem; opacity:0.6;">
-                    Quelle: <a href="https://www.mittelbayerische.de/wahlen/kommunalwahl-bayern-2026/landkreis-schwandorf" target="_blank" style="color:var(--accent); text-decoration:none;">MZ Wahlticker</a>
                 </div>`;
-        // Impressum u Datenschutz
-        } else if(type === 'impressum') {
+        
+        // Imprssum und Datenschutz
+} else if(type === 'impressum') {
             content = `
                 <h2>Impressum</h2>
                 <div style="text-align: left; line-height: 1.6;">
@@ -347,6 +508,7 @@
                     <p style="margin-top: 15px;">Es werden keine Cookies oder Tracking-Tools (wie Google Analytics) verwendet.</p>
                 </div>`;
         }
+                
         document.getElementById("modal-text").innerHTML = content;
         document.getElementById("infoModal").classList.remove("hidden");
     }
@@ -356,5 +518,4 @@
     loadQuestion();
 </script>
 </body>
-
 </html>
