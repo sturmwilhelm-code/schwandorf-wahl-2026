@@ -57,7 +57,7 @@
             width: 100%;
             padding-bottom: 20px;
         }
-        
+
         footer a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; 
         }
 
@@ -208,6 +208,69 @@
             max-width: 600px;
             line-height: 1.5;
         }
+
+.answer-card {
+            background: var(--glass); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 16px; 
+            margin-bottom: 12px;
+            position: relative;
+            transition: all 0.3s ease; 
+            overflow: hidden;
+        }
+
+        .answer-card:hover {
+            background: rgba(255, 255, 255, 0.2); 
+            border-color: var(--accent); 
+            transform: translateY(-2px); 
+        }
+
+        .answer-card:active {
+            transform: scale(0.98);
+        }
+
+        .card-main {
+            padding: 20px;
+            padding-right: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-heading {
+            color: var(--text); 
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.4;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+        }
+        .info-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: #334155;
+            color: #fbbf24; 
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .info-text {
+            padding: 0 20px 20px 20px;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            border-top: 1px solid #334155;
+            margin-top: -5px;
+            padding-top: 10px;
+        }
+
+        .hidden { display: none; 
+        }
     </style>
 </head>
 <body>
@@ -245,7 +308,7 @@
         <div class="progress-container"><div id="progress-bar"></div></div>
         <div class="step-info" id="step-counter">Frage 1 von 11</div>
         <p id="question-text" class="question">Wird geladen...</p>
-        <div id="options-container"></div>
+        <div id="question-container"></div>
     </div>
     <div id="results" class="hidden">
         <h2 style="text-align: center;">Dein Ergebnis</h2>
@@ -314,144 +377,672 @@
 
         //Frage 1
         { 
-    text: "🏠 Wohnraum: Wie bekämpfen wir den Mangel an bezahlbarem Wohnraum?", 
-    options:    [
-            { text: "Wohnen als Grundrecht: Mietkautionsfonds & Verbot von Strom-/Wassersperren.",              parties: ["Linke"] },
-            { text: "Neue Baugebiete im Stadtgebiet & Vergabe durch Einheimischenmodell.",                      parties: ["CSU", "Freie Wähler"] },
-            { text: "Städtische Wohnungsbaugesellschaft für Sozialwohnungen & Barrierefreiheit.",               parties: ["SPD", "Linke"] },
-            { text: "Lückenschlüsse forcieren & Grundsteuer C gegen Grundstücksspekulation.",                   parties: ["Bürgerliste", "Grüne", "ÖDP"] },
-            { text: "Mietpreisbremse verschärfen & Leerstand durch Satzungen bekämpfen.",                       parties: ["Grüne", "SPD"] },
-            { text: "Bürokratie für Bauherren abbauen & Grunderwerbsteuer senken.",                             parties: ["AfD", "UW"] }
+        text: "🏠 Wohnraum: Wie bekämpfen wir den Mangel an bezahlbarem Wohnraum?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Neue Baugebiete & Einheimischenmodell", 
+                explanation: "Wir setzen auf die Ausweisung neuer Baugebiete und fördern den Erwerb durch Einheimische, um jungen Familien Wurzeln in Schwandorf zu ermöglichen. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "Städtische Wohnungsbaugesellschaft", 
+                explanation: "Wohnen darf nicht luxus sein. Wir fordern eine eigene städtische Gesellschaft, die gezielt barrierefreien und bezahlbaren Wohnraum für alle Bürger schafft. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Lückenschluss & Grundsteuer C", 
+                explanation: "Flächenfraß stoppen! Wir wollen Baulücken im Stadtgebiet schließen und Spekulation mit Grundstücken durch die Grundsteuer C unattraktiv machen. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Baugebiete & Bürokratieabbau", 
+                explanation: "Wir wollen das Bauen wieder einfacher machen. Schnelle Genehmigungsverfahren und attraktive Konditionen für Einheimische stehen für uns im Fokus. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Bürokratieabbau & Kostensenkung", 
+                explanation: "Bauen muss bezahlbar bleiben. Wir fordern die Senkung der Grunderwerbsteuer und ein Ende unnötiger ökologischer Bauvorschriften, die Preise treiben. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Mietkautionsfonds & Sozialquote", 
+                explanation: "Wohnen ist Menschenrecht. Ein Mietkautionsfonds soll helfen, und bei Neubauten muss eine feste Quote für echten Sozialwohnungsbau zwingend vorgeschrieben sein. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Flächensparen & Nachverdichtung", 
+                explanation: "Wir priorisieren den Erhalt unserer Natur. Deshalb setzen wir konsequent auf Nachverdichtung und die Revitalisierung von Leerständen statt neuer Flächenversiegelung. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Handwerk fördern & Kosten senken", 
+                explanation: "Bezahlbarer Wohnraum entsteht durch kluge Förderung des lokalen Handwerks und den Abbau von teuren kommunalen Auflagen beim Hausbau. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Transparente Vergabe & Lückenschluss", 
+                explanation: "Wir fordern eine transparente Vergabe von städtischem Grund und wollen brachliegende Flächen im Kernort schneller einer Nutzung zuführen. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
         },
 
         //Frage 2
         { 
-    text: "🌳 Umwelt: Welchen Fokus setzen wir beim Klimaschutz vor Ort?", 
-    options:    [
-            { text: "Bürger-Energiegenossenschaften fördern & Balkonkraftwerke bezuschussen.",                  parties: ["Linke", "Grüne"] },
-            { text: "Historische Wasserräder reaktivieren & ökologische Aufwertung der Naab.",                  parties: ["Bürgerliste", "ÖDP"] },
-            { text: "Schwammstadt-Prinzip: Entsiegelung fördern & Renaturierung von Mooren.",                   parties: ["Grüne", "Linke"] },
-            { text: "Priorität auf zügigen Hochwasserschutz an Naab und Vils.",                                 parties: ["CSU", "AfD"] },
-            { text: "Initiative '1000 Bäume für Schwandorf' & regionale Landwirtschaft stärken.",               parties: ["SPD", "Freie Wähler"] },
-            { text: "Dezentrale Energieversorgung & Nahwärmenetze in den Ortsteilen fördern.",                  parties: ["UW", "ÖDP"] }
+        text: "🌳 Umwelt: Welchen Fokus setzen wir beim Klimaschutz vor Ort?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Zügiger Hochwasserschutz", 
+                explanation: "Sicherheit für die Bürger: Wir priorisieren den zügigen Ausbau des Hochwasserschutzes an Naab und Vils zum Schutz von Hab und Gut. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "1000 Bäume für Schwandorf", 
+                explanation: "Mehr Stadtgrün und Klimaschutz: Wir starten die Initiative '1000 Bäume für Schwandorf' und stärken die regionale Landwirtschaft massiv. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Schwammstadt & Moore", 
+                explanation: "Wasser in der Stadt halten! Wir fördern Entsiegelung nach dem Schwammstadt-Prinzip und renaturieren Moore als natürliche CO2-Speicher. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Regionale Landwirtschaft", 
+                explanation: "Klimaschutz durch kurze Wege: Wir unterstützen unsere Landwirte vor Ort und setzen auf Begrünungsprojekte im gesamten Stadtgebiet. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Effektiver Hochwasserschutz", 
+                explanation: "Anpassung statt Ideologie: Wir setzen auf den zügigen Ausbau technischer Schutzanlagen an unseren Flüssen statt teurer Klimamaßnahmen. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Energiegenossenschaften", 
+                explanation: "Energie in Bürgerhand: Wir fördern Genossenschaften und bezuschussen Balkonkraftwerke, damit Klimaschutz für jeden Haushalt bezahlbar ist. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Naab-Ökologie & Wasserräder", 
+                explanation: "Naturerhalt und Tradition: Wir reaktivieren historische Wasserräder zur Energiegewinnung und werten die Naab ökologisch konsequent auf. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Dezentrale Nahwärmenetze", 
+                explanation: "Unabhängigkeit für Ortsteile: Wir fördern dezentrale Energieversorgung und den Aufbau von Nahwärmenetzen in der gesamten Gemeinde. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Historische Wasserkraft", 
+                explanation: "Lokale Ressourcen nutzen: Wir setzen auf die Reaktivierung alter Wasserräder und verbinden Denkmalschutz mit ökologischer Aufwertung. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
-        },  
+        },
 
         //Frage 3
         { 
-    text: "🏀 Freizeit: Was ist die wichtigste Investition in unsere Infrastruktur?", 
-    options:    [
-            { text: "Sanierung des Sepp-Simon-Stadions & effiziente Nutzung der Anlage.",                       parties: ["SPD", "CSU"] },
-            { text: "Bau einer Dreifachturnhalle & Einrichtung eines Sportamts im Rathaus.",                    parties: ["UW", "SPD"] },
-            { text: "Zusätzlicher Kunstrasenplatz & Modernisierung der Bolzplätze.",                            parties: ["Bürgerliste", "Freie Wähler"] },
-            { text: "Umbau des Lokschuppens zum barrierefreien Kulturzentrum.",                                 parties: ["Bürgerliste", "Grüne"] },
-            { text: "Konsumfreie Flächen & selbstverwaltete Jugendzentren fördern.",                            parties: ["Linke", "Grüne"] },
-            { text: "Stabile Preise für Bäder & Förderung von Inklusions- und Rollstuhlsport.",                 parties: ["Linke", "ÖDP", "AfD"] }
+        text: "🏀 Freizeit: Was ist die wichtigste Investition in unsere Infrastruktur?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Sanierung Sepp-Simon-Stadion", 
+                explanation: "Sportstadt Schwandorf erhalten: Wir setzen auf die grundlegende Sanierung des Sepp-Simon-Stadions und eine effiziente Nutzung der gesamten Anlage. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "Stadion-Sanierung & Sportamt", 
+                explanation: "Wir forcieren die Stadionsanierung und wollen ein eigenes Sportamt im Rathaus als zentralen Ansprechpartner für alle Vereine etablieren. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Kulturzentrum & Jugendräume", 
+                explanation: "Kultur für alle: Wir bauen den Lokschuppen zum barrierefreien Zentrum um und fördern selbstverwaltete, konsumfreie Räume für Jugendliche. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Kunstrasen & Bolzplätze", 
+                explanation: "Breitensport fördern: Wir investieren in einen zusätzlichen Kunstrasenplatz und modernisieren die städtischen Bolzplätze für unsere Kinder. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Bezahlbare Bäder & Inklusion", 
+                explanation: "Freizeit muss bezahlbar sein: Wir garantieren stabile Preise für unsere Bäder und fördern gezielt den Inklusions- und Rollstuhlsport. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Soziale Freizeitgestaltung", 
+                explanation: "Kein Zwang zum Geld ausgeben: Wir fördern konsumfreie Zonen, Jugendzentren und sorgen für freien Zugang zu Sportangeboten für alle. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Inklusionssport & faire Preise", 
+                explanation: "Teilhabe ermöglichen: Unser Fokus liegt auf der Förderung von Inklusionssport und dem Erhalt sozialverträglicher Eintrittspreise in den Bädern. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Bau einer Dreifachturnhalle", 
+                explanation: "Platz für den Vereinssport: Wir fordern den Neubau einer modernen Dreifachturnhalle, um die Kapazitäten für Schulen und Vereine zu sichern. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Lokschuppen & Kunstrasen", 
+                explanation: "Infrastruktur-Mix: Den Lokschuppen zum Kulturzentrum entwickeln und gleichzeitig neue Trainingsflächen wie Kunstrasenplätze schaffen. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
-        },        
+        },
 
         //Frage 4
         { 
-    text: "💼 Wirtschaft: Wie stärken wir den Standort Schwandorf nachhaltig?", 
-    options:    [
-            { text: "Industrie-Ansiedlung am BBI-Gelände & interkommunale Gebiete ausbauen.",                   parties: ["CSU", "Bürgerliste"] },
-            { text: "Öffentliche Aufträge nur an Unternehmen mit Tarifbindung vergeben.",                       parties: ["Linke", "SPD"] },
-            { text: "Ansiedlung einer OTH-Zweigstelle, um Fachkräfte in der Stadt zu halten.",                  parties: ["Bürgerliste", "Grüne"] },
-            { text: "Regionales Handwerk & Mittelstand bei der Auftragsvergabe bevorzugen.",                    parties: ["Freie Wähler", "UW"] },
-            { text: "Start-up-Zentrum in Leerständen fördern & Gemeinwohl-Ökonomie stärken.",                   parties: ["Grüne", "ÖDP"] },
-            { text: "Gewerbesteuer stabil halten & Bürokratie für Firmengründer abbauen.",                      parties: ["AfD", "CSU", "UW"] }
+        text: "💼 Wirtschaft: Wie stärken wir den Standort Schwandorf nachhaltig?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Industrie-Fokus & Stabile Steuern", 
+                explanation: "Wir forcieren Industrie-Ansiedlungen am BBI-Gelände und garantieren stabile Gewerbesteuern, um Schwandorf als starken Motor der Region zu erhalten. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "Faire Löhne & Tarifbindung", 
+                explanation: "Wirtschaftsförderung heißt für uns soziale Verantwortung: Öffentliche Aufträge der Stadt sollen künftig nur noch an Firmen mit Tarifbindung gehen. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Hochschul-Standort & Start-ups", 
+                explanation: "Wissen schafft Zukunft: Wir wollen eine OTH-Zweigstelle ansiedeln und Leerstände in der City als Brutstätten für nachhaltige Start-ups nutzen. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Stärkung des Handwerks", 
+                explanation: "Unser Rückgrat ist der Mittelstand: Wir setzen uns dafür ein, dass regionales Handwerk bei kommunalen Vergaben bevorzugt zum Zug kommt. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Bürokratieabbau & Steuersenkung", 
+                explanation: "Freiraum für Gründer: Wir fordern ein radikales Ausmisten unnötiger Vorschriften und eine investitionsfreundliche, niedrige Gewerbesteuer. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Gute Arbeit & Tarifpflicht", 
+                explanation: "Gegen Lohndumping: Die Stadt muss als Vorbild vorangehen und darf nur mit Unternehmen zusammenarbeiten, die ihre Angestellten nach Tarif bezahlen. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Gemeinwohl-Ökonomie", 
+                explanation: "Nachhaltig wirtschaften: Wir fördern Betriebe, die nach der Gemeinwohl-Bilanz arbeiten, und setzen auf ein ressourcenschonendes, lokales Gewerbe. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Mittelstand & Gründerservice", 
+                explanation: "Praxisnahe Wirtschaftspolitik: Wir bauen die Bürokratie für Firmengründer ab und stärken die Verbindung zwischen Stadtverwaltung und lokalem Handwerk. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Interkommunale Gebiete & OTH", 
+                explanation: "Wachstum mit Köpfchen: Wir setzen auf interkommunale Gewerbegebiete und wollen Schwandorf durch eine OTH-Zweigstelle für Fachkräfte attraktiver machen. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
-        }, 
-    
+        },   
+
         //Frage 5
         { 
-    text: "🏘️ Innenstadt: Wie beleben wir den Marktplatz?", 
-    options:    [
-            { text: "Dauerhafte Fußgängerzone für mehr Gastro- & Aufenthaltsqualität.",                         parties: ["SPD", "ÖDP"] },
-            { text: "Autofreundliche Innenstadt: Parkplätze & digitale Leitsysteme erhalten.",                  parties: ["AfD", "Freie Wähler", "CSU"] },
-            { text: "Kommunalen Gewerbemietendeckel prüfen, um lokale Läden zu schützen.",                      parties: ["Linke"] },
-            { text: "Leerstände durch Pop-up-Stores & Umzug der Stadtbibliothek bekämpfen.",                    parties: ["Bürgerliste", "SPD", "UW"] },
-            { text: "Mehr konsumfreie Zonen, Sitzbänke & Trinkbrunnen am Marktplatz.",                          parties: ["Linke", "Grüne"] },
-            { text: "Einkaufsatmosphäre durch Stadtgrün & attraktive Abendmärkte stärken.",                     parties: ["Freie Wähler", "UW", "AfD"] }
+        text: "🏘️ Innenstadt: Wie beleben wir den Marktplatz?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Erreichbarkeit & Parkplätze", 
+                explanation: "Eine lebendige Stadt braucht Kunden: Wir stehen zur autofreundlichen Innenstadt mit ausreichend Parkplätzen und modernen digitalen Leitsystemen. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "Fußgängerzone & Bibliothek", 
+                explanation: "Mehr Lebensqualität durch eine dauerhafte Fußgängerzone und den Umzug der Stadtbibliothek in die Innenstadt, um neue Frequenzbringer zu schaffen. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Verweilqualität ohne Kaufzwang", 
+                explanation: "Der Marktplatz für alle: Wir setzen auf mehr konsumfreie Zonen, zusätzliche Sitzbänke, Trinkbrunnen und eine deutliche Begrünung der City. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Abendmärkte & Parkkomfort", 
+                explanation: "Attraktivität steigern durch gemütliche Abendmärkte und Stadtgrün, während die Erreichbarkeit für Autofahrer durch Parkplätze gesichert bleibt. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Handel durch Mobilität", 
+                explanation: "Einkaufen ohne Hürden: Wir fordern den Erhalt aller Parkplätze und lehnen Experimente wie eine Ausweitung der Fußgängerzone konsequent ab. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Gewerbemietendeckel", 
+                explanation: "Lokale Läden schützen: Wir wollen einen kommunalen Gewerbemietendeckel prüfen, damit kleine Geschäfte nicht durch Luxussanierungen verdrängt werden. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Flanieren statt Fahren", 
+                explanation: "Ruhe und Flair: Wir fordern eine konsequente Verkehrsberuhigung und eine attraktive Fußgängerzone für eine moderne Gastronomie am Marktplatz. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Pop-up-Stores & Stadtgrün", 
+                explanation: "Kreative Belebung: Wir bekämpfen Leerstände durch Pop-up-Stores und steigern die Atmosphäre durch mehr Pflanzen und regelmäßige Events. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Frequenz durch Bildung", 
+                explanation: "Ankerpunkte setzen: Wir forcieren den Umzug der Stadtbibliothek an den Marktplatz und nutzen brachliegende Flächen für innovative Ladenkonzepte. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
         },
 
         //Frage 6
         { 
-    text: "💻 Digitalisierung: Wie modern soll unsere Verwaltung werden?", 
-    options:    [
-            { text: "Vollständiges Online-Rathaus: Alle Anträge digital von zuhause erledigen.",                parties: ["CSU", "SPD", "Freie Wähler"] },
-            { text: "Recht auf analoges Leben: Persönliche Ansprechpartner & Papier-Formulare erhalten.",       parties: ["AfD", "ÖDP"] },
-            { text: "Ausbau des 'Digitalen Zwillings' zur besseren Steuerung von Verkehr & Ressourcen.",        parties: ["UW", "Bürgerliste"] },
-            { text: "Glasfaser-Ausbau in allen Ortsteilen & Schließung von Funklöchern forcieren.",             parties: ["CSU", "Bürgerliste", "Freie Wähler"] },
-            { text: "Vorrang für Open-Source-Software & strengster Datenschutz in der Verwaltung.",             parties: ["ÖDP", "Grüne", "Linke"] },
-            { text: "Dauerhafte Garantie für Bargeldzahlung in allen städtischen Einrichtungen.",               parties: ["AfD", "UW"] }
+        text: "💻 Digitalisierung: Wie modern soll unsere Verwaltung werden?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Vollständiges Online-Rathaus", 
+                explanation: "Digitale Verwaltung jetzt: Wir forcieren den Glasfaser-Ausbau und wollen, dass alle Behördengänge sicher und einfach von zuhause aus erledigt werden können. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "Modernes Online-Rathaus", 
+                explanation: "Wir machen das Rathaus 24/7 erreichbar. Alle wichtigen Anträge müssen digital möglich sein, um Wartezeiten und Bürokratie für die Bürger zu minimieren. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Open Source & Datenschutz", 
+                explanation: "Souveräne Digitalisierung: Wir setzen auf Open-Source-Software in der Verwaltung und garantieren höchsten Datenschutz für alle Bürgerdaten. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Glasfaser & Online-Service", 
+                explanation: "Infrastruktur zuerst: Wir schließen jedes Funkloch und bauen Glasfaser in alle Ortsteile aus, während wir das Online-Angebot der Stadt massiv erweitern. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Bargeld & Analoges Leben", 
+                explanation: "Wahlfreiheit erhalten: Wir garantieren das Recht auf Papier-Formulare und stellen sicher, dass in allen städtischen Einrichtungen weiterhin bar bezahlt werden kann. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Transparente Open Source", 
+                explanation: "Digitale Freiheit: Die Verwaltung muss unabhängig von großen Software-Konzernen werden und konsequent auf quelloffene, transparente Lösungen setzen. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Datenschutz & Wahlfreiheit", 
+                explanation: "Digitalisierung mit Maß: Wir fordern strengsten Datenschutz und den Erhalt persönlicher, analoger Ansprechpartner für alle Bürger ohne Internet. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Digitaler Zwilling & Bargeld", 
+                explanation: "Hightech für die Planung: Wir nutzen den 'Digitalen Zwilling' zur Verkehrssteuerung, garantieren aber gleichzeitig die dauerhafte Bargeldzahlung im Rathaus. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Smart City Infrastruktur", 
+                explanation: "Zukunft planen: Mit einem 'Digitalen Zwilling' steuern wir Ressourcen effizienter und treiben den Glasfaser-Ausbau in jedem Winkel Schwandorfs voran. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
         },
     
         //Frage 7
         { 
-    text: "👨‍👩‍👧‍👦 Familie: Wo ist der größte Handlungsbedarf?", 
-    options:    [
-            { text: "Kostenloses Mittagessen in Kitas & Schulen sowie mehr Ferienbetreuung.",                   parties: ["Linke", "SPD"] },
-            { text: "Durchsetzung eines Mittelschulkonzepts & Erhalt kleiner Grundschulen.",                    parties: ["Bürgerliste", "CSU", "Freie Wähler"] },
-            { text: "Inklusive Spielplätze, Einstiegshilfen in Bäder & mehr öffentliche WCs.",                  parties: ["ÖDP", "Linke", "Grüne"] },
-            { text: "Stärkere Förderung von Mehrkindfamilien & Anerkennung der Erziehungsleistung.",            parties: ["AfD", "CSU"] },
-            { text: "Barrierefreies Wohnen für Senioren & Aufbau von Nachbarschaftszentren.",                   parties: ["UW", "ÖDP", "Freie Wähler"] },
-            { text: "Kitaplätze für Schichtarbeitende & Förderung von Jugendprojekten.",                        parties: ["Grüne", "SPD", "AfD"] }
+        text: "👨‍👩‍👧‍👦 Familie: Wo ist der größte Handlungsbedarf?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Schulkonzept & Mehrkindfamilien", 
+                explanation: "Wir setzen auf den Erhalt kleiner Grundschulen, ein starkes Mittelschulkonzept und die gezielte Unterstützung von Mehrkindfamilien. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "Mittagessen & Schicht-Kitas", 
+                explanation: "Soziale Entlastung: Wir fordern kostenloses Mittagessen in Kitas und Schulen sowie Betreuungsangebote, die zu Schichtarbeitszeiten passen. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Inklusion & Jugendprojekte", 
+                explanation: "Teilhabe von Anfang an: Wir investieren in inklusive Spielplätze, barrierefreie öffentliche Einrichtungen und fördern innovative Jugendprojekte. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Dorfschulen & Seniorenwohnen", 
+                explanation: "Kurze Wege für Kinder: Wir sichern unsere kleinen Grundschulen und fördern gleichzeitig barrierefreie Wohnformen für Senioren in der Heimat. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Erziehungsleistung & Betreuung", 
+                explanation: "Fokus Familie: Wir fordern die Anerkennung der Erziehungsleistung zu Hause und bedarfsgerechte Kitaplätze für arbeitende Eltern. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Kostenlose Bildung & Barrierefreiheit", 
+                explanation: "Bildung darf nichts kosten: Von der Kita-Verpflegung bis zum Ferienprogramm – wir fordern Gebührenfreiheit und volle Barrierefreiheit im Alltag. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Inklusion & Nachbarschaft", 
+                explanation: "Miteinander stärken: Wir setzen auf inklusive Spielplätze und den Aufbau von Nachbarschaftszentren als Treffpunkt für Jung und Alt. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Senioren & Nachbarschaftshilfe", 
+                explanation: "Generationen-Zusammenhalt: Unser Fokus liegt auf barrierefreiem Wohnen für Senioren und der Förderung lokaler Nachbarschaftszentren. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Schulstandorte & Infrastruktur", 
+                explanation: "Bildung vor Ort: Wir garantieren den Erhalt kleiner Grundschulen und setzen uns für moderne, gut ausgestattete Mittelschulen ein. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
-        }, 
+        },
     
         //Frage 8
         { 
-    text: "🤝 Ehrenamt: Wie stärken wir die Bürgerbeteiligung in Schwandorf?", 
-    options:    [
-            { text: "SAD-Pass für Ehrenamtliche: Freier ÖPNV & vergünstigte Freizeitangebote.",                 parties: ["Linke", "SPD"] },
-            { text: "Bürgerhaushalt einführen: Bürger entscheiden direkt über ein festes Budget.",              parties: ["UW", "ÖDP", "Grüne"] },
-            { text: "Servicestelle im Rathaus: Vereine bei Bürokratie & Haftung aktiv unterstützen.",           parties: ["CSU", "Freie Wähler"] },
-            { text: "Jährlicher 'Tag des Ehrenamts' & finanzielle Soforthilfe für Vereine.",                    parties: ["Bürgerliste", "CSU"] },
-            { text: "Online-Petitionstool 'openDemokratie' auf der Stadtseite fest integrieren.",               parties: ["Bürgerliste", "UW"] },
-            { text: "Bürgerentscheide erleichtern & zufällig geloste Bürgerräte einberufen.",                   parties: ["ÖDP", "Grüne", "AfD"] }
+        text: "🤝 Ehrenamt: Wie stärken wir die Bürgerbeteiligung in Schwandorf?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Bürokratiehilfe & Soforthilfe", 
+                explanation: "Vereine entlasten: Wir schaffen eine Servicestelle im Rathaus für Haftungsfragen und bieten finanzielle Soforthilfen für engagierte Vereine. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "SAD-Pass für Ehrenamtliche", 
+                explanation: "Wertschätzung zeigen: Mit einem SAD-Pass erhalten Ehrenamtliche freien ÖPNV und vergünstigten Zugang zu allen städtischen Freizeitangeboten. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Bürgerräte & Bürgerhaushalt", 
+                explanation: "Echte Mitbestimmung: Wir führen einen Bürgerhaushalt ein und lassen per Los gewählte Bürgerräte bei wichtigen Stadtprojekten mitentscheiden. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Rathaus-Service für Vereine", 
+                explanation: "Schluss mit dem Papierkrieg: Wir unterstützen unsere Vereine aktiv bei bürokratischen Hürden durch einen zentralen Ansprechpartner im Rathaus. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Direkte Demokratie stärken", 
+                explanation: "Bürger entscheiden: Wir wollen Hürden für Bürgerentscheide senken, damit die Schwandorfer bei Großprojekten das letzte Wort haben. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Soziale Ehrenamtskarte", 
+                explanation: "Engagement belohnen: Durch den SAD-Pass sichern wir Ehrenamtlichen kostenlose Mobilität und Teilhabe an Kultur und Sport in unserer Stadt. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Bürgerhaushalt & Mitbestimmung", 
+                explanation: "Direkter Einfluss: Bürger sollen über ein festes Budget selbst entscheiden und durch erleichterte Bürgerentscheide aktiv Politik mitgestalten. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Digitales Petitionstool", 
+                explanation: "Moderne Beteiligung: Wir integrieren das Tool 'openDemokratie' auf der Stadtseite und führen einen Bürgerhaushalt für eigene Projekte ein. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Tag des Ehrenamts & Petitionsrecht", 
+                explanation: "Ehre, wem Ehre gebührt: Wir führen einen jährlichen Tag des Ehrenamts ein und fördern digitale Beteiligung über Online-Petitionstools. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
-        }, 
+        },
 
         //Frage 9       
         { 
-    text: "🚲 Verkehr: Wie sieht die Mobilität der Zukunft in Schwandorf aus?", 
-    options:    [
-            { text: "Bahnhalt Klardorf reaktivieren & Zugverbindung nach Regensburg stärken.",                  parties: ["UW", "Freie Wähler"] },
-            { text: "Kostenloses Kurzzeitparken erhalten & Erreichbarkeit der City sichern.",                   parties: ["AfD", "Freie Wähler", "CSU"] },
-            { text: "Lückenloses Radwegenetz ausbauen & sichere Stellplätze am Bahnhof.",                       parties: ["ÖDP", "Bürgerliste"] },
-            { text: "Flexible Rufbusse für alle Ortsteile (On-Demand-System) einführen.",                       parties: ["Bürgerliste", "UW"] },
-            { text: "Verkehrsberuhigung in Wohnvierteln & sichere Schulwege priorisieren.",                     parties: ["SPD", "CSU"] },
-            { text: "Ausbau öffentlicher E-Ladestellen & Förderung von Carsharing-Modellen.",                   parties: ["AfD", "ÖDP"] }
+        text: "🚲 Verkehr: Wie sieht die Mobilität der Zukunft in Schwandorf aus?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Sichere Wege & Parken", 
+                explanation: "Sicherheit zuerst: Wir priorisieren sichere Schulwege und Verkehrsberuhigung in Wohngebieten, während wir das kostenlose Kurzzeitparken erhalten. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "Verkehrsberuhigung & Schulwege", 
+                explanation: "Lebenswerte Quartiere: Wir setzen auf konsequente Verkehrsberuhigung in Wohnvierteln und garantieren absolut sichere Schulwege für unsere Kinder. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Rad-Offensive & Carsharing", 
+                explanation: "Mobilitätswende: Wir fordern ein lückenloses Radwegenetz, mehr E-Ladestationen und die aktive Förderung von Carsharing-Modellen in Schwandorf. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Bahnhalt Klardorf & Parken", 
+                explanation: "Beste Anbindung: Wir kämpfen für die Reaktivierung des Bahnhalts Klardorf und sichern die Erreichbarkeit der City durch kostenloses Kurzzeitparken. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Pro Auto & E-Ladestellen", 
+                explanation: "Freie Fahrt: Wir sichern das kostenlose Parken in der City und unterstützen den Ausbau öffentlicher E-Ladestellen auf marktwirtschaftlicher Basis. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Sozialer ÖPNV & Radwege", 
+                explanation: "Mobilität für alle: Wir fordern den Ausbau des Radnetzes und einen günstigen, eng getakteten ÖPNV, der alle Ortsteile barrierefrei verbindet. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Radnetz & Carsharing", 
+                explanation: "Ökologisch bewegt: Ein lückenloses Radwegenetz und die Förderung von Carsharing sind unsere Antwort auf die Verkehrsfragen der Zukunft. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Bahnhalt & On-Demand-Busse", 
+                explanation: "Innovativ vernetzt: Wir reaktivieren den Bahnhalt Klardorf und führen flexible Rufbusse (On-Demand) für alle Ortsteile ein. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Radwege & Rufbusse", 
+                explanation: "Modern mobil: Wir bauen sichere Stellplätze am Bahnhof, ein lückenloses Radnetz und führen flexible Rufbusse für die ganze Stadt ein. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
-        }, 
+        },
     
         //Frage 10
         { 
-    text: "🍺 Schmidt-Bräu-Areal: Wie soll dieses Gelände genutzt werden?", 
-    options:    [
-            { text: "Kulturzentrum: Neubau für VHS, Musikschule & Bürgersaal.",                             parties: ["CSU", "SPD", "UW"] },
-            { text: "Sozialer Wohnungsbau: Fokus auf bezahlbaren Raum & Genossenschaften.",                 parties: ["Linke", "Grüne"] },
-            { text: "Grüne Oase: Den Bereich unverbaut als Erholungsfläche nutzen.",                        parties: ["ÖDP", "Bürgerliste"] },
-            { text: "Parksituation verbessern: Bau einer Tiefgarage unter dem Areal.",                      parties: ["AfD", "Freie Wähler"] },
-            { text: "Identität wahren: Bestehende historische Gebäude sanieren statt abreißen.",            parties: ["ÖDP", "UW"] },
-            { text: "Inhabergeführter Handel: Kleinteilige Läden statt großer Ketten.",                     parties: ["Bürgerliste", "Freie Wähler"] }
+        text: "🍺 Schmidt-Bräu-Areal: Wie soll dieses Gelände genutzt werden?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Kultur- & Bildungszentrum", 
+                explanation: "Ein Leuchtturm für die Stadt: Wir wollen das Areal für VHS, Musikschule und einen Bürgersaal nutzen, um ein Zentrum für alle Generationen zu schaffen. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "Kulturzentrum & Bürgersaal", 
+                explanation: "Das Herzstück der Stadt beleben: Wir setzen auf einen modernen Neubau für Bildung und Kultur, der Platz für die Musikschule und einen großen Bürgersaal bietet. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Bezahlbares Wohnen", 
+                explanation: "Wohnraum ist ein Grundrecht: Wir fordern auf dem Areal konsequenten sozialen Wohnungsbau und die Förderung von Wohnungsbaugenossenschaften. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Handel & Tiefgarage", 
+                explanation: "Die City stärken: Wir fordern kleinteilige, inhabergeführte Läden und eine Tiefgarage unter dem Gelände, um die Parksituation in der Innenstadt zu lösen. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Parkraum schaffen", 
+                explanation: "Entspannt einkaufen: Wir setzen uns für den Bau einer Tiefgarage unter dem Areal ein, um den Parkdruck in der Innenstadt spürbar zu mindern. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Sozialer Wohnungsbau", 
+                explanation: "Mietenwahnsinn stoppen: Das Gelände muss für bezahlbare Wohnungen genutzt werden, damit auch Menschen mit geringem Einkommen mitten in der Stadt leben können. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Identität & Grüne Oase", 
+                explanation: "Schwandorfs Gesicht wahren: Wir wollen historische Gebäude sanieren und den Bereich als unverbbaute, grüne Erholungsfläche im Zentrum erhalten. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Kultur & Sanierung", 
+                explanation: "Historie trifft Moderne: Wir wollen bestehende Gebäude sanieren und dort ein Kulturzentrum einrichten, das die Geschichte des Areals atmet. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Grüne Oase & Einzelhandel", 
+                explanation: "Natur und Handel vereinen: Wir setzen auf eine unbebaute Erholungsfläche kombiniert mit kleinteiligen, inhabergeführten Läden am Rand des Geländes. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
         },
 
         //Frage 11
         { 
-    text: "🏥 Gesundheit: Wie sichern wir die medizinische Versorgung 2026?", 
-    options:    [
-            { text: "Klinik-Rekommunalisierung: Krankenhäuser zurück in öffentliche Hand.",                 parties: ["Linke", "SPD"] },
-            { text: "Landarzt-Offensive: Mobile Teams & Förderung für Praxen im Umland.",                   parties: ["Freie Wähler", "AfD"] },
-            { text: "Hebammen-Offensive: Festanstellung & bessere Bezahlung im Kreißsaal.",                 parties: ["Linke", "SPD"] },
-            { text: "Psychische Gesundheit: Eigene Fachstation im Landkreis einrichten.",                   parties: ["AfD"] },
-            { text: "Ärztliche Versorgung: Bürokratieabbau für niedergelassene Ärzte.",                     parties: ["Freie Wähler"] },
-            { text: "Sicherung der Notfallversorgung: Erhalt aller Klinik-Standorte.",                      parties: ["SPD", "Linke", "AfD", "Freie Wähler"] }
+        text: "🏥 Gesundheit: Wie sichern wir die medizinische Versorgung 2026?", 
+        answers: [
+            { 
+                party: "CSU", 
+                heading: "Klinikstandorte & Notfallversorgung", 
+                explanation: "Versorgungssicherheit garantieren: Wir setzen uns für den Erhalt unserer lokalen Klinikstandorte und eine lückenlose, schnelle Notfallversorgung ein. (180 Zeichen Test)",
+                score: { "CSU": 1 }
+            },
+            { 
+                party: "SPD", 
+                heading: "Klinik-Rekommunalisierung & Hebammen", 
+                explanation: "Gesundheit ist keine Ware: Wir fordern Krankenhäuser zurück in öffentliche Hand und eine Hebammen-Offensive mit besserer Bezahlung und Festanstellung. (180 Zeichen Test)",
+                score: { "SPD": 1 }
+            },
+            { 
+                party: "Grüne", 
+                heading: "Ganzheitliche Versorgung", 
+                explanation: "Modern und nah: Wir fördern vernetzte Ärztehäuser und setzen auf eine starke psychische Gesundheitsvorsorge direkt vor Ort im Landkreis. (180 Zeichen Test)",
+                score: { "Grüne": 1 }
+            },
+            { 
+                party: "Freie Wähler", 
+                heading: "Landarzt-Offensive & Bürokratieabbau", 
+                explanation: "Ärzte aufs Land: Wir fördern aktiv neue Praxen im Umland und bauen Bürokratie ab, damit Mediziner wieder mehr Zeit für ihre Patienten haben. (180 Zeichen Test)",
+                score: { "Freie Wähler": 1 }
+            },
+            { 
+                party: "AfD", 
+                heading: "Mobile Teams & Fachstationen", 
+                explanation: "Versorgung sichern: Wir fordern mobile Ärzteteams für das Umland und die Einrichtung einer eigenen Fachstation für psychische Gesundheit im Landkreis. (180 Zeichen Test)",
+                score: { "AfD": 1 }
+            },
+            { 
+                party: "Linke", 
+                heading: "Kliniken in Bürgerhand", 
+                explanation: "Gewinne stoppen: Krankenhäuser gehören in die öffentliche Hand. Nur so sichern wir faire Löhne für Hebammen und den Erhalt aller Klinikstandorte. (180 Zeichen Test)",
+                score: { "Linke": 1 }
+            },
+            { 
+                party: "ÖDP", 
+                heading: "Prävention & Nahversorgung", 
+                explanation: "Gesund leben in SAD: Wir stärken die wohnortnahe Versorgung durch Hebammen und kleine Praxen, um lange Wege für Patienten zu vermeiden. (180 Zeichen Test)",
+                score: { "ÖDP": 1 }
+            },
+            { 
+                party: "UW", 
+                heading: "Standortsicherung & Vernetzung", 
+                explanation: "Zukunftssichere Medizin: Wir kämpfen für den Erhalt der Kliniken und fördern die digitale Vernetzung zwischen Hausärzten und Spezialisten. (180 Zeichen Test)",
+                score: { "UW": 1 }
+            },
+            { 
+                party: "Bürgerliste", 
+                heading: "Hausärztliche Versorgung", 
+                explanation: "Fokus Grundversorgung: Wir unterstützen die Ansiedlung junger Ärzte in Schwandorf und setzen uns für den Erhalt der lokalen Klinikstrukturen ein. (180 Zeichen Test)",
+                score: { "Bürgerliste": 1 }
+            }
                 ] 
         }
     ];
@@ -459,31 +1050,59 @@
     let scores =            { "CSU": 0, "SPD": 0, "Bürgerliste": 0, "UW": 0, "Linke": 0, "Grüne": 0, "AfD": 0, "Freie Wähler": 0, "ÖDP": 0 };
     let currentStep = 0;
 
-    function loadQuestion() {
-    const q = questions[currentStep];
+function renderQuestion(index) {
+    const q = questions[index];
+    const container = document.getElementById('question-container');
+    
     document.getElementById("question-text").innerText = q.text;
-    document.getElementById("step-counter").innerText = `Frage ${currentStep + 1} von ${questions.length}`;
-    
-    const progressPercent = (currentStep / questions.length) * 100;
-    const progressBar = document.getElementById("progress-bar");
-    progressBar.style.width = `${progressPercent}%`;
-    
-    const container = document.getElementById("options-container");
+    const progressPercent = ((index + 1) / questions.length) * 100;
+    document.getElementById("progress-bar").style.width = progressPercent + "%";
+    document.getElementById("step-counter").innerText = `Frage ${index + 1} von ${questions.length}`;
+
     container.innerHTML = "";
-    q.options.forEach(opt => {
-        const div = document.createElement("div");
-        div.className = "option-card";
-        div.innerText = opt.text;
-        div.onclick = () => selectOption(opt.parties);
-        container.appendChild(div);
+
+    const shuffledAnswers = [...q.answers].sort(() => Math.random() - 0.5);
+
+    shuffledAnswers.forEach(ans => {
+        const card = document.createElement('div');
+        card.className = 'answer-card';
+
+        const scoreData = JSON.stringify(ans.score);
+        
+        card.innerHTML = `
+            <div class="card-main" onclick='selectOption(${scoreData})'>
+                <span class="card-heading">${ans.heading}</span>
+            </div>
+            <button class="info-btn" onclick="toggleInfo(event, this)">i</button>
+            <div class="info-text hidden">${ans.explanation}</div>
+        `;
+        container.appendChild(card);
     });
 }
 
-    function selectOption(parties) {
-        parties.forEach(p => scores[p]++);
-        currentStep++;
-        if (currentStep < questions.length) { loadQuestion(); } else { showResults(); }
+function toggleInfo(event, btn) {
+    event.stopPropagation();
+    const infoText = btn.nextElementSibling;
+    infoText.classList.toggle('hidden');
+    btn.textContent = infoText.classList.contains('hidden') ? 'i' : 'x';
+}
+
+function selectOption(scoreObj) {
+    
+    for (let party in scoreObj) {
+        if (scores.hasOwnProperty(party)) {
+            scores[party] += scoreObj[party];
+        }
     }
+    
+    currentStep++; 
+    
+    if (currentStep < questions.length) {
+        renderQuestion(currentStep);
+    } else {
+        showResults();
+    }
+}
 
     function showResults() {
     const progressBar = document.getElementById("progress-bar");
@@ -628,7 +1247,7 @@ content = `
     function startQuiz() {
         document.getElementById("intro-step").classList.add("hidden");
         document.getElementById("quiz-step").classList.remove("hidden");
-        loadQuestion();
+        renderQuestion(0);
     }
 </script>
 </body>
