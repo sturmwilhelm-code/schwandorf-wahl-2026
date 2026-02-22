@@ -279,7 +279,8 @@
     <div class="nav-buttons">
         <button class="nav-btn" onclick="openInfo('prog')">Wahlprogramme</button>
         <button class="nav-btn" onclick="openInfo('ob')">OB-Kandidaten</button>
-        <button class="nav-btn" onclick="openInfo('land')">Landrat-Kandidaten</button>
+        <button class="nav-btn" onclick="openInfo('land')">Landratskandidaten</button>
+        <button class="nav-btn" onclick="openInfo('service')">🗳️ Probestimmzettel</button>
         <button class="nav-btn" onclick="window.open('https://www.stmi.bayern.de/wahlen-und-abstimmungen/kommunalwahlen/', '_blank')">Weitere Infos</button>
     </div>
 
@@ -287,6 +288,9 @@
 
         <div id="intro-step" class="intro-card">
                 <h2 class="intro-title">Schwandorf entscheidet – nicht Berlin! 🥨</h2>
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">
+                    Fokus: Oberbürgermeister- & Stadtratswahl der Stadt Schwandorf
+                </p>
                 <p class="intro-text">
                     Bei der Kommunalwahl geht es nicht um die große Weltpolitik, sondern um <strong>unser Zuhause</strong>. Viele wählen aus Frust über den Bund, vergessen dabei aber die Themen vor der eigenen Haustür.
                 </p>
@@ -350,13 +354,13 @@
     const partyLinks = {
     'CSU': 'https://www.csu.de/verbaende/ov/schwandorf/oberbuergermeisterwahl/',
     'SPD': 'https://spd-schwandorf.de/workspace/media/static/spd_wahlprogramm-6903cf2746d88.pdf',
-    'UW': 'https://uw-schwandorf.de/programm-2020/',
     'Grüne': 'https://gruene-schwandorf.de/ortsverband-schwandorf/stadtratswahl-2026-unser-programm/',
-    'Bürgerliste': 'https://www.xn--brgerliste-schwandorf-8hc.de/programm/',
-    'ÖDP': 'https://www.oedp-oberpfalz.de/wahlen/kommunalwahlen-2026',
-    'AfD': 'https://www.facebook.com/afd.schwandorf.cham/?locale=de_DE',
     'Freie Wähler': 'https://www.facebook.com/freiewaehlerschwandorf/?locale=de_DE',
-    'Linke': 'https://www.die-linke-mittlere-oberpfalz.de/kommunalwahlen-2026/programm-und-kandidatinnen-im-landkreis-schwandorf/programm-fuer-den-landkreis-schwandorf/'
+    'AfD': 'https://www.facebook.com/afd.schwandorf.cham/?locale=de_DE',
+    'ÖDP': 'https://www.oedp-oberpfalz.de/wahlen/kommunalwahlen-2026',
+    'UW': 'https://uw-schwandorf.de/programm-2020/',
+    'Linke': 'https://www.die-linke-mittlere-oberpfalz.de/kommunalwahlen-2026/programm-und-kandidatinnen-im-landkreis-schwandorf/programm-fuer-den-landkreis-schwandorf/',
+    'Bürgerliste': 'https://www.xn--brgerliste-schwandorf-8hc.de/programm/'
 };
     //PArteilogos
     const partyLogos = {
@@ -368,7 +372,8 @@
         "Linke": "https://upload.wikimedia.org/wikipedia/commons/4/45/Die_Linke_logo.svg",
         "ÖDP": "https://upload.wikimedia.org/wikipedia/commons/3/3e/%C3%96DP-Logo.svg",
         "Bürgerliste": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4ipCrF0bUJ7dZd4-_LMutWuZR5zuRptKPng&s",
-        "UW": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBXji9lwwNK7RsM5KXKwLmetDhF27zpG18hA&s"
+        "UW": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBXji9lwwNK7RsM5KXKwLmetDhF27zpG18hA&s",
+        "CWG": "https://scontent-fra5-1.xx.fbcdn.net/v/t39.30808-6/354440669_573431421627344_3134889215081788554_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=1d70fc&_nc_ohc=fVU3eCyBpLkQ7kNvwGuTBWh&_nc_oc=AdmbJoNwM2eJl78ywVpzBNzKkgp4-oAydWBsxb9zB3utIrVfLY_OgSFJjVapUwRQG3dUNIJfhs7Rw37h7jqsbYjf&_nc_zt=23&_nc_ht=scontent-fra5-1.xx&_nc_gid=SOYa2WjKMoSYHwmYKUgd-Q&oh=00_AfswSOTOJsj33kMAmvzK9yCxYpUwkyLtYlz0IRChg6yk5w&oe=69A085E6"
     };
 
     //Fragen, Antworten und Zuteilung
@@ -1047,8 +1052,10 @@
         }
     ];
 
-    let scores =            { "CSU": 0, "SPD": 0, "Bürgerliste": 0, "UW": 0, "Linke": 0, "Grüne": 0, "AfD": 0, "Freie Wähler": 0, "ÖDP": 0 };
-    let currentStep = 0;
+    let scores =            { "CSU": 0, "SPD": 0, "Grüne": 0, "Freie Wähler": 0, "AfD": 0, "ÖDP": 0, "UW": 0, "Linke": 0, "Bürgerliste": 0 
+    };
+
+    let currentStep = 0
 
 function renderQuestion(index) {
     const q = questions[index];
@@ -1147,7 +1154,7 @@ function selectOption(scoreObj) {
 content = `
     <h2 style="margin-bottom:20px;">Wahlprogramme & Quellen 2026</h2>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center;">
-        ${['CSU', 'SPD', 'UW', 'Grüne', 'Bürgerliste', 'ÖDP', 'AfD', 'Freie Wähler', 'Linke'].map(p => `
+        ${['CSU', 'Freie Wähler', 'AfD', 'Grüne', 'SPD', 'UW', 'ÖDP', 'Linke', 'Bürgerliste'].map(p => `
             <a href="${partyLinks[p]}" target="_blank" style="text-decoration:none; color:inherit;">
                 <div style="background:rgba(255,255,255,0.1); padding:10px; border-radius:12px; transition: transform 0.2s; cursor:pointer;" 
                      onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
@@ -1162,21 +1169,51 @@ content = `
     </div>
     <p style="font-size:0.75rem; margin-top:20px; opacity:0.7; text-align:center; line-height:1.4;">
         Die Inhalte basieren auf den offiziellen Programmen zur Kommunalwahl am 08. März 2026.<br>
-        <strong>Klicken Sie auf ein Logo, um das volle Programm zu lesen.</strong>
+        <strong>Klicken Sie auf ein Logo, um das volle Programm zu lesen.<br>
+            Die Reihenfolge der Parteien sind von links nach rechts an der amtlichen Bekanntmachung der Wahlvorschläge gemäß § 52 GLKrWO dargestellt</strong>
     </p>`;
+
+
+    } else if(type === 'service') {
+    content = `
+        <h2>Wahl-Service & Übung</h2>
+        <p style=\"font-size:0.9rem; margin-bottom:20px; opacity:0.8;\">
+            Die bayerische Kommunalwahl ist mit 60 Stimmen (Kreis) und bis zu 3 Stimmen pro Person komplex. Nutzen Sie die offiziellen Probestimmzettel zum Üben:
+        </p>
+
+        <div style=\"display: grid; gap: 15px;\">
+            <a href=\"https://wahl.schwandorf.de/Wahl/KW2026/Stadtrat/probestimmzettel.html\" target=\"_blank\" style=\"text-decoration:none;\">
+                <div style=\"padding:15px; background:rgba(255,255,255,0.1); border-radius:12px; border:1px solid var(--accent);\">
+                    <strong style=\"color:var(--accent); display:block; margin-bottom:5px;\">Stadtrat Schwandorf ↗</strong>
+                    <span style=\"font-size:0.75rem; color:white; opacity:0.8;\">Interaktive Übung für die Stadtratswahl.</span>
+                </div>
+            </a>
+
+            <a href=\"https://wahlen.landkreis-schwandorf.de/2026/Kreistagswahl/probestimmzettel.html\" target=\"_blank\" style=\"text-decoration:none;\">
+                <div style=\"padding:15px; background:rgba(255,255,255,0.1); border-radius:12px; border:1px solid #ffcc00;\">
+                    <strong style=\"color:#ffcc00; display:block; margin-bottom:5px;\">Kreistagswahl (Landkreis) ↗</strong>
+                    <span style=\"font-size:0.75rem; color:white; opacity:0.8;\">60 Stimmen richtig verteilen (Kumulieren & Panaschieren).</span>
+                </div>
+            </a>
+        </div>
+
+        <div style=\"margin-top:20px; font-size:0.75rem; opacity:0.6; line-height:1.4;\">
+            <strong>Tipp:</strong> Die Probestimmzettel zeigen Ihnen sofort an, ob Ihre Wahl gültig wäre. Ideal, um das Wahlsystem ohne Zeitdruck kennenzulernen.
+        </div>`;
+
 
         } else if(type === 'ob') {
             content = `
                 <h2>OB-Kandidaten 2026</h2>
                 <div style="display: grid; gap: 10px; text-align: left;">
                     ${[
-                        {n: "Andreas Feller", p: "Bürgerliste"},
                         {n: "Andreas Wopperer", p: "CSU"},
-                        {n: "Andreas Weinmann", p: "SPD"},
-                        {n: "Roland Kraus", p: "AfD"},
-                        {n: "Kurt Mieschala", p: "UW"},
                         {n: "Dieter Jäger", p: "Freie Wähler"},
-                        {n: "Tobias Mainka", p: "Linke"}
+                        {n: "Roland Kraus", p: "AfD"},
+                        {n: "Andreas Weinmann", p: "SPD"},
+                        {n: "Kurt Mieschala", p: "UW"},
+                        {n: "Tobias Mainka", p: "Linke"},
+                        {n: "Andreas Feller", p: "Bürgerliste"}
                     ].map(c => `
                         <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
                             <div style="width:40px; height:40px; background:white; border-radius:50%; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0;">
@@ -1186,15 +1223,17 @@ content = `
                         </div>
                     `).join('')}
                 </div>`;
+
+        
         } else if(type === 'land') {
             content = `
                 <h2>Landratswahl 2026</h2>
                 <div style="display: grid; gap: 10px; text-align: left;">
                     ${[
                         {n: "Thomas Ebeling", p: "CSU"},
-                        {n: "Marianne Schieder", p: "SPD"},
                         {n: "Thomas Borcuch", p: "AfD"},
-                        {n: "Christina Bauer", p: "UW"},
+                        {n: "Marianne Schieder", p: "SPD"},
+                        {n: "Christina Bauer", p: "CWG"},
                         {n: "Diana Schulz", p: "Linke"}
                     ].map(c => `
                         <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.1); padding:10px; border-radius:12px;">
@@ -1204,6 +1243,13 @@ content = `
                             <div><span style="font-weight:bold; display:block;">${c.n}</span><span style="font-size:0.75rem; opacity:0.7;">${c.p}</span></div>
                         </div>
                     `).join('')}
+                </div>
+                
+                <div style="margin-top:20px; padding:15px; background:rgba(0,210,255,0.1); border-radius:12px; border: 1px dashed var(--accent);">
+            <p style="font-weight:bold; margin-bottom:10px;">Vollständige Listen für den Kreistag:</p>
+            <a href="https://www.schwandorf.de/media/custom/3655_5272_1.PDF" target="_blank" style="color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:8px;">
+                <span>📄</span> <strong>als PDF öffnen</strong>
+            </a>
                 </div>`;
         
         // Imprssum und Datenschutz
@@ -1217,7 +1263,7 @@ content = `
                     E-Mail: sturm.wilhelm@gmail.com</p>
                     
                     <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 15px 0;">
-                    
+                    <p>Die Reihenfolge der Darstellung orientiert sich an der amtlichen Bekanntmachung der Wahlvorschläge gemäß <strong>§ 52 GLKrWO</strong>.<p/>
                     <p><strong>Wichtiger Hinweis:</strong><br>
                     Diese Anwendung dient ausschließlich der neutralen Information der Bürgerinnen und Bürger im Vorfeld der Kommunalwahl 2026. Sie soll als spielerische Unterstützung bei Unentschlossenheit dienen, ersetzt jedoch nicht die eigene fundierte Auseinandersetzung mit den Wahlprogrammen der Parteien. Ich übernehme keine Haftung für fahrlässige Falschangaben. Über jeden Hinweis für Fehler, bitte ich gerne um Rückmeldung, um die Anwendung stetig zu verbessern.</p>
                 </div>`;
@@ -1252,4 +1298,3 @@ content = `
 </script>
 </body>
 </html>
-
