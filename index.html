@@ -297,7 +297,7 @@
         <div class="focus-box">
                 <p><strong>Hier in Schwandorf entscheiden wir darüber:</strong></p>
                     <ul class="focus-list">
-                        <li><span>🚂</span> Reaktivierung des Bahnhalts Klardorf?</li>
+                        <li><span>🏘️</span> Zukunft unserer Innenstadt?</li>
                         <li><span>🍺</span> Die Zukunft des Schmidt-Bräu-Areals?</li>
                         <li><span>🏥</span> Sicherung der lokalen Gesundheitsversorgung?</li>
                     </ul>
@@ -319,12 +319,12 @@
         
         <div class="disclaimer-box">
             <p>
-                <strong>💡 Hinweis:</strong> Dieses Tool basiert auf einer privaten Analyse der Wahlprogramme.
-                Da die Parteien in dieser Testphase nicht direkt befragt wurden, können die Ergebnisse von aktuellen Detail-Positionen abweichen.
+                <strong>💡 Hinweis:</strong> Dieses Tool basiert auf einer privaten Analyse der Wahlprogramme sowie (bei teilnehmenden Fraktionen) auf einem ergänzenden Fragenkatalog. 
+                            Die Ergebnisse dienen der Orientierung und können von aktuellen Detail-Positionen abweichen.
             </p>
-            <p style="margin-bottom: 0;">Bitte lies für eine finale Entscheidung die offiziellen Wahlprogramme der Parteien.</p>
+        <p style="margin-bottom: 0;">Eine Übersicht zur Datengrundlage findest du im <strong>FAQ</strong>. Bitte lies für eine finale Entscheidung die offiziellen Wahlprogramme.</p>
         </div>
-
+        
         <div id="score-list"></div>
         <button class="restart-btn" onclick="location.reload()">Test wiederholen</button>
     </div>
@@ -343,6 +343,7 @@
             <span>📲</span> SAD-O-Mat weiterempfehlen
         </button>
     </div>
+    <a href="javascript:void(0)" onclick="openInfo('faq')">FAQ</a> |
     <a href="javascript:void(0)" onclick="openInfo('impressum')">Impressum</a> | 
     <a href="javascript:void(0)" onclick="openInfo('datenschutz')">Datenschutz</a>
     <p style="margin-top:15px;">&copy; 2026 SAD-O-Mat | Ein privates Informationsprojekt</p>
@@ -380,675 +381,371 @@
     const questions = 
     [
 
-        //Frage 1
+        // Frage 1
         { 
         text: "🏠 Wohnraum: Wie bekämpfen wir den Mangel an bezahlbarem Wohnraum?", 
         answers: [
-            { 
-                party: "CSU", 
-                heading: "Wohnraum schaffen, Heimat sichern.", 
-                explanation: "Wir schaffen bezahlbaren Wohnraum durch neue Baugebiete, die Vergabe von Plätzen im Einheimischenmodell und maßvolle Nachverdichtung. So bleibt Heimat für alle bezahlbar.",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Wohnen darf nicht luxus sein. Wir fordern eine eigene städtische Gesellschaft, die gezielt barrierefreien und bezahlbaren Wohnraum für alle Bürger schafft. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Schluss mit Spekulation und Leerstand", 
-                explanation: "Wir bekämpfen die Wohnungsnot durch eine konsequente Leerstandsabgabe und einen fairen Mietspiegel, während wir gleichzeitig durch die Förderung von Sanierungen, den Ausbau des kommunalen Wohnbaus sowie die Vergabe von Grundstücken im Einheimischenmodell oder Erbpacht dauerhaft bezahlbares Wohnen für alle Bürger sichern.",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Wir wollen das Bauen wieder einfacher machen. Schnelle Genehmigungsverfahren und attraktive Konditionen für Einheimische stehen für uns im Fokus. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Bauen muss bezahlbar bleiben. Wir fordern die Senkung der Grunderwerbsteuer und ein Ende unnötiger ökologischer Bauvorschriften, die Preise treiben. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "Kommunaler Wohnungsbau - Kein Profit mit der Miete", 
-                explanation: "Die Stadt Schwandorf soll ein kommunales Wohnungsbauprogramm starten und die Wohnungen nach Fertigstellung vermieten. Die Mieten decken nur die Baukosten, nicht Gewinne.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Gründung einer Stadtbau im Eigenbetrieb der Stadt.", 
-                explanation: "Mit der Stadtbau wäre es für die Stadt Schwandorf leichter selbst einen sozialen Mietwohnungsbau durchzuführen. Auflegen eines Förderprogramms zur Sanierung der Altbauwohnungen in der Innenstadt. Daneben muss die Stadt weiterhin Baugrund als Bauerwartungsland aufkaufen, erschließen & günstig an die Bauwilligen abgeben.",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Bezahlbarer Wohnraum entsteht durch kluge Förderung des lokalen Handwerks und den Abbau von teuren kommunalen Auflagen beim Hausbau. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Wir fordern eine transparente Vergabe von städtischem Grund und wollen brachliegende Flächen im Kernort schneller einer Nutzung zuführen. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
+        { 
+            heading: "Städtische Baugesellschaft & Sozialer Wohnbau", 
+            explanation: "Wir gründen eine städtische Wohnungsbaugesellschaft (oder einen Eigenbetrieb), um aktiv sozialen Mietwohnungsbau zu betreiben und Altbauten zu sanieren.", 
+            score: { "SPD": 1, "ÖDP": 1, "Linke": 1, "Grüne": 1 }
+        },
+        { 
+            heading: "Bauland-Offensive & Einheimischenmodell", 
+            explanation: "Fokus auf neue Baugebiete in allen Ortsteilen, Lückenschluss und die Vergabe von Plätzen nach dem Einheimischenmodell, um Wohneigentum für Familien zu sichern.", 
+            score: { "CSU": 1, "Bürgerliste": 1, "UW": 1, "Grüne": 1 }
+        },
+        { 
+            heading: "Eigentumsförderung & Mieterschutz", 
+            explanation: "Wir wollen die Schaffung von privatem Wohneigentum erleichtern und setzen auf starken Mieterschutz statt auf staatliche Mietendeckel.", 
+            score: { "Freie Wähler": 1 }
+        },
+        { 
+            heading: "Bürokratieabbau & Kostensenkung", 
+            explanation: "Wir fordern eine einfache Verwaltung und lehnen teure Prestigeprojekte ab, um die Baukosten und damit die Mieten indirekt zu senken.", 
+            score: { "AfD": 1 }
+        }
                 ] 
         },
 
-        //Frage 2
+        // Frage 2
         { 
         text: "🌳 Umwelt: Welchen Fokus setzen wir beim Klimaschutz vor Ort?", 
         answers: [
-            { 
-                party: "CSU", 
-                heading: "Klimaschutz vor Ort - pragmatisch und gemeinsam.", 
-                explanation: "Wir setzen auf einen kommunalen Wärmeplan, die Beteiligung der Bürger an Erneuerbare-Energien-Anlagen und die Energieoptimierung unserer städtischen Liegenschaften.",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Mehr Stadtgrün und Klimaschutz: Wir starten die Initiative '1000 Bäume für Schwandorf' und stärken die regionale Landwirtschaft massiv. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Wir wollen eine klimaresiliente Gestaltung der Stadt", 
-                explanation: "Wir setzen auf eine klimagerechte Stadtentwicklung, indem wir die Innenstadt begrünen, Nachverdichtung vor Neubau priorisieren und durch verbindliche Nachhaltigkeitsprüfungen, das Verhindern Schottergärten sowie gezielte Beratung zu Photovoltaik und Wärmepumpen die Energiewende direkt zu den Bürgerinnen und Bürgern bringen.",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Klimaschutz durch kurze Wege: Wir unterstützen unsere Landwirte vor Ort und setzen auf Begrünungsprojekte im gesamten Stadtgebiet. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Anpassung statt Ideologie: Wir setzen auf den zügigen Ausbau technischer Schutzanlagen an unseren Flüssen statt teurer Klimamaßnahmen. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "Fernwärmeausbau und keine Betonwüsten schaffen", 
-                explanation: "Durch einen Turbo beim Fernwärmeausbau können Haushalte die Abwärme des ZMS nutzen. Zudem darf die Stadt keine Hitzeinseln schaffen, sondern entsiegeln und begrünen.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Klima schützen und die Bürger bei der Energiewende beteiligen.", 
-                explanation: "Umsetzung des vom Klimaschutzmanagers erstellten Klimaschutzkonzepts und der Wärmeplanung für das gesamt Stadtgebiet. Erstellung eines Energieeinsparplans durch bessere Wärmedämmung, Installierung von Solaranlagen & Photovoltaikanlagen auf allen geeigneten städtischen Gebäuden. Konsequente Ausrichtung der Bauleitplanung, um regenerative Energien (Sonne, Biogas, Holz usw.) nutzen zu können. Beschleunigte Umstellung der Straßenbeleuchtung auf energiesparende LED-Lampen. Wiedervernässung von Mooren im Stadtgebiet. Beim Bau von Windkraftanlagen muss immer eine Bürgerbeteiligung möglich sein.",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Unabhängigkeit für Ortsteile: Wir fördern dezentrale Energieversorgung und den Aufbau von Nahwärmenetzen in der gesamten Gemeinde. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Lokale Ressourcen nutzen: Wir setzen auf die Reaktivierung alter Wasserräder und verbinden Denkmalschutz mit ökologischer Aufwertung. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
+        { 
+            heading: "Energiewende durch Bürgerhand", 
+            explanation: "Wir priorisieren die Beteiligung der Bürger an PV- und Windanlagen sowie eine zügige kommunale Wärmeplanung für alle Stadtteile.", 
+            score: { "CSU": 1, "ÖDP": 1, "UW": 1, "Bürgerliste": 1 }
+        },
+        { 
+            heading: "Radikale Begrünung & Schwammstadt", 
+            explanation: "Massive Innenstadt-Begrünung, Entsiegelung von Flächen ('Schwammstadt') und Schutz alter Bäume, um Hitzeinseln aktiv zu bekämpfen.", 
+            score: { "Grüne": 1, "Bürgerliste": 1, "Linke": 1, "SPD": 1 }
+        },
+        { 
+            heading: "Infrastruktur-Turbo: Fernwärme", 
+            explanation: "Wir forcieren den massiven Ausbau des Fernwärmenetzes (Abwärme ZMS), um Haushalte schnell von fossilen Brennstoffen wegzubringen.", 
+            score: { "SPD": 1, "Linke": 1 }
+        },
+        { 
+            heading: "Technologie-Offenheit & Wasserstoff", 
+            explanation: "Klimaschutz ohne Verbote: Wir setzen auf Wasserstoff-Technologie, dezentralen Hochwasserschutz und den Erhalt unserer Wälder.", 
+            score: { "Freie Wähler": 1 }
+        },
+        { 
+            heading: "Strenger Natur- & Artenschutz", 
+            explanation: "Verbot von Schottergärten, verbindliche Nachhaltigkeitsprüfungen bei Bauprojekten und Moorschutz im Stadtgebiet.", 
+            score: { "Grüne": 1, "ÖDP": 1 }
+        },
+        { 
+            heading: "Bezahlbarkeit vor Ideologie", 
+            explanation: "Klimaschutz darf nicht zu Lasten der Geringverdiener gehen. Wir lehnen Windkraft in Erholungsgebieten und neue Energie-Abgaben ab.", 
+            score: { "AfD": 1 }
+        }
                 ] 
         },
 
-        //Frage 3
+        // Frage 3
         { 
         text: "🏀 Freizeit und Infrastruktur: Was ist die wichtigste Investition in unsere Infrastruktur?", 
         answers: [
-            { 
-                party: "CSU", 
-                heading: "Freizeit für alle: Angebote stärken und nutzen.", 
-                explanation: "Wir stärken das vielfältige Freizeit- und Kulturangebot für alle Generationen und setzen uns für die öffentliche Nutzung des Sepp-Simon-Stadions ein",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Wir forcieren die Stadionsanierung und wollen ein eigenes Sportamt im Rathaus als zentralen Ansprechpartner für alle Vereine etablieren. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Mobilität und Sicherheit auch ohne Auto", 
-                explanation: "Wir gestalten eine zukunftsfähige Mobilität durch den konsequenten Ausbau sicherer Radwege und eines getakteten ÖPNV, der alle Ortsteile flexibel verbindet, ergänzt durch moderne Infrastruktur wie überwachte Fahrradgaragen und nachhaltig mit PV-Licht beleuchtete Bushaltestellen.",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Breitensport fördern: Wir investieren in einen zusätzlichen Kunstrasenplatz und modernisieren die städtischen Bolzplätze für unsere Kinder. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Freizeit muss bezahlbar sein: Wir garantieren stabile Preise für unsere Bäder und fördern gezielt den Inklusions- und Rollstuhlsport. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "Fernwärme ausbauen - ÖPNV attraktiv gestalten", 
-                explanation: "Die Fernwärme muss schneller ausgebaut werden. Der ÖPNV, besonders in Dörfern, soll mit höherer Taktung attraktiver sein, mit klarem Fahrplan und digitalen Anzeigen.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Kurzfristig der Glasfaseranschluss für jedes Haus. Langfristig die zweite Naabbrücke.", 
-                explanation: "Schnelles Internet ist mittlerweile genauso wichtig wie der Strom- oder Wasseranschluss für private Haushalte & Betriebe. Mit der zweiten Naabbrücke würde die Innenstadt vom Durchgangsverkehr befreit und dadurch Lärm & Abgase reduziert.",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Platz für den Vereinssport: Wir fordern den Neubau einer modernen Dreifachturnhalle, um die Kapazitäten für Schulen und Vereine zu sichern. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Infrastruktur-Mix: Den Lokschuppen zum Kulturzentrum entwickeln und gleichzeitig neue Trainingsflächen wie Kunstrasenplätze schaffen. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
+        { 
+            heading: "Sportstadt-Offensive: Stadion & Hallen", 
+            explanation: "Wir sanieren das Sepp-Simon-Stadion, bauen eine neue Sporthalle für Schulen/Vereine und sichern die Attraktivität unserer Bäder.", 
+            score: { "SPD": 1, "Freie Wähler": 1, "Bürgerliste": 1, "CSU": 1 }
+        },
+        { 
+            heading: "Nachhaltige Mobilität & Radwegenetz", 
+            explanation: "Priorität für sichere Radwege, einen dichten ÖPNV-Takt in alle Ortsteile und moderne Infrastruktur wie Fahrradgaragen oder digitale Anzeigen.", 
+            score: { "Grüne": 1, "Linke": 1, "Bürgerliste": 1, "UW": 1 }
+        },
+        { 
+            heading: "Digitale & bauliche Großprojekte", 
+            explanation: "Wir fordern Glasfaser für jedes Haus und planen langfristig die zweite Naabbrücke, um die Innenstadt vom Durchgangsverkehr zu befreien.", 
+            score: { "ÖDP": 1 }
+        },
+        { 
+            heading: "Vereinsförderung durch neues Sportamt", 
+            explanation: "Ein eigenes Sportamt im Rathaus zur Unterstützung der Ehrenamtlichen und den Stadtpark als zentralen Festort stärken.", 
+            score: { "UW": 1 }
+        },
+        { 
+            heading: "Bewahrung & Ehrenamts-Schutz", 
+            explanation: "Keine teuren Prestigeprojekte: Wir konzentrieren uns auf den Erhalt bestehender Anlagen und die direkte Unterstützung lokaler Vereine.", 
+            score: { "AfD": 1, "Bürgerliste": 1 }
+        }
                 ] 
         },
 
-        //Frage 4
+        // Frage 4
         { 
         text: "💼 Wirtschaft: Wie stärken wir den Standort Schwandorf nachhaltig?", 
         answers: [
-            { 
-                party: "CSU", 
-                heading: "Starker Wirtschaftsstandort, sichere Arbeitsplätze.", 
-                explanation: "Wir sichern bestehende Betriebe und siedeln neue an. Dafür weisen wir Gewerbegebiete aus und entwickeln das interkommunale Gewerbegebiet konsequent weiter.",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Wirtschaftsförderung heißt für uns soziale Verantwortung: Öffentliche Aufträge der Stadt sollen künftig nur noch an Firmen mit Tarifbindung gehen. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Arbeitskräfte sichern durch einen attraktiven Wohnort", 
-                explanation: "Wir begegnen dem Fachkräftemangel entschlossen, indem wir die Abwanderung stoppen und den Zuzug durch attraktive Bedingungen für Familien fördern, während wir gleichzeitig die Integration neuer Mitbürger stärken und durch den ÖPNV-Ausbau eine optimale Erreichbarkeit unserer Wirtschaftsstandorte sicherstellen.",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Unser Rückgrat ist der Mittelstand: Wir setzen uns dafür ein, dass regionales Handwerk bei kommunalen Vergaben bevorzugt zum Zug kommt. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Freiraum für Gründer: Wir fordern ein radikales Ausmisten unnötiger Vorschriften und eine investitionsfreundliche, niedrige Gewerbesteuer. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "Unternehmen sind nur so gut wie ihre Mitarbeiter", 
-                explanation: "Schwandorf bietet genug Gewerbeflächen. Jetzt gilt es, den Standort für Familien attraktiver zu machen: mit niedrigen Mieten, Kulturangeboten und guter Kinderbetreuung.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Stärken durch eine aktive Wirtschaftsförderung", 
-                explanation: "Einführung eines runden Tisches der Stadt mit den Vertretern der Wirtschaft. Förderung der Ansiedlung eines Stadthotels. Wir wollen das Schwandorf eine Außenstelle der FH-Amberg bekommt. Errichtung von Stadtwerken & einer Stadtbau. Flächensparende Ausweisung bei neuen Gewerbegebieten durch einen Mehrgeschossbau & wenn möglich Interkommunal mit den Nachbargemeinden.",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Praxisnahe Wirtschaftspolitik: Wir bauen die Bürokratie für Firmengründer ab und stärken die Verbindung zwischen Stadtverwaltung und lokalem Handwerk. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Wachstum mit Köpfchen: Wir setzen auf interkommunale Gewerbegebiete und wollen Schwandorf durch eine OTH-Zweigstelle für Fachkräfte attraktiver machen. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
+        { 
+            heading: "Gewerbe-Offensive & Neuansiedlung", 
+            explanation: "Wir weisen zügig neue Gewerbegebiete aus und entwickeln das interkommunale Gewerbegebiet weiter, um Abwanderung zu verhindern und neue Betriebe anzuziehen.", 
+            score: { "CSU": 1, "Bürgerliste": 1, "UW": 1, "AfD": 1 }
+        },
+        { 
+            heading: "Bildungsstandort & Hochschul-Anbindung", 
+            explanation: "Schwandorf braucht eine Außenstelle der OTH/FH. Zudem fördern wir die Wirtschaft durch einen runden Tisch mit Betrieben und eine aktive Ansiedlungspolitik.", 
+            score: { "SPD": 1, "ÖDP": 1 }
+        },
+        { 
+            heading: "Fachkräfte durch Lebensqualität", 
+            explanation: "Gegen Fachkräftemangel hilft ein attraktiver Wohnort: Wir setzen auf niedrige Mieten, exzellente Kinderbetreuung und gute ÖPNV-Anbindung der Betriebe.", 
+            score: { "Grüne": 1, "Linke": 1 }
+        },
+        { 
+            heading: "Mittelstandsschutz & Bürokratieabbau", 
+            explanation: "Wir entlasten das lokale Handwerk und den Mittelstand konsequent von Bürokratie und fördern flächensparende Bauweisen bei neuen Gewerbeprojekten.", 
+            score: { "Freie Wähler": 1, "AfD": 1, "ÖDP": 1 }
+        }
                 ] 
-        },   
+        },
 
-        //Frage 5
+        // Frage 5
         { 
         text: "🏘️ Innenstadt: Wie beleben wir den Marktplatz?", 
         answers: [
-            { 
-                party: "CSU", 
-                heading: "Unser Marktplatz: Ein Treffpunkt mit Zukunft", 
-                explanation: "Wir gestalten den Marktplatz und die Friedrich-Ebert-Straße um. Pop-up-Stores und eine Fußgängerzone sollen die Aufenthaltsqualität steigern und die Innenstadt beleben.",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Mehr Lebensqualität durch eine dauerhafte Fußgängerzone und den Umzug der Stadtbibliothek in die Innenstadt, um neue Frequenzbringer zu schaffen. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Ein Marktplatz für Menschen, nicht für Autos", 
-                explanation: "Wir verwandeln unsere Mitte in eine lebendige grüne Oase als Treffpunkt für Jung und Alt mit hoher Aufenthaltsqualität, sichern die Nahversorgung durch Bauernläden und Spontaneinkaufsmöglichkeiten und schaffen mit einem Kulturzentrum im Mehrgenerationenhaus einen Ort für Begegnung und Kreativität.",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Attraktivität steigern durch gemütliche Abendmärkte und Stadtgrün, während die Erreichbarkeit für Autofahrer durch Parkplätze gesichert bleibt. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Einkaufen ohne Hürden: Wir fordern den Erhalt aller Parkplätze und lehnen Experimente wie eine Ausweitung der Fußgängerzone konsequent ab. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "Kultur rein - Autos raus", 
-                explanation: "Eine Fußgängerzone muss her: Verkehr verursacht Lärm und Unruhe. Der Platz soll für Freisitze und Kultur genutzt, Leerstände mit z.B. Pop-up-Stores belebt werden.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Leerstände beseitigen & die Innenstadt attraktiver machen", 
-                explanation: "Der Onlinehandel ist eine große Herausforderung für den Handel in den Innenstädten. Dafür kann die Stadt nichts. Sie muss aber die Rahmenbedingungen so gestalten, dass die Innenstadt attraktiver wird. Dazu gehört die Fußgängerzone in der Friedr.-Ebert.Str., die Bebauung des Schmidt-Bräu Geländes und mehr Grün am Marktplatz. Bei der Ausweisung von neuen Gewerbegebieten muss strenger auf die Innenstadtverträglichkeit geachtet werden. Weitere Einkaufszentren auf der grünen Wiese lehnen wir ab. ",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Kreative Belebung: Wir bekämpfen Leerstände durch Pop-up-Stores und steigern die Atmosphäre durch mehr Pflanzen und regelmäßige Events. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Ankerpunkte setzen: Wir forcieren den Umzug der Stadtbibliothek an den Marktplatz und nutzen brachliegende Flächen für innovative Ladenkonzepte. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
+        { 
+            heading: "Fußgängerzone & Verweilqualität", 
+            explanation: "Wir wollen eine echte Fußgängerzone in der Friedrich-Ebert-Straße, Pop-up-Stores gegen Leerstand und mehr Grünflächen zum Verweilen ohne Autolärm.", 
+            score: { "CSU": 1, "Grüne": 1, "Linke": 1, "ÖDP": 1 }
+        },
+        { 
+            heading: "Schmidt-Bräu & Bildungszentrum", 
+            explanation: "Schnellstmögliche Umsetzung des Projekts auf dem Schmidt-Bräu-Areal (Bibliothek, Musikschule, Wohnen) als neuer Frequenzbringer für das Zentrum.", 
+            score: { "SPD": 1, "ÖDP": 1, "Bürgerliste": 1 }
+        },
+        { 
+            heading: "Event-Zentrum & Marktplatz-Programm", 
+            explanation: "Belebung durch mehr Veranstaltungen und ein erweitertes Programm am Marktplatz, das aktiv von den Bürgern mitgestaltet und angenommen wird.", 
+            score: { "Bürgerliste": 1, "Freie Wähler": 1 }
+        },
+        { 
+            heading: "Attraktivität durch Nahversorgung", 
+            explanation: "Fokus auf die Ansiedlung von Bauernläden, ein Kulturzentrum im Mehrgenerationenhaus und eine bessere Anbindung des Bahnhofs ans Zentrum.", 
+            score: { "Grüne": 1, "UW": 1 }
+        },
+        { 
+            heading: "Sparsame Stadtentwicklung", 
+            explanation: "Keine teuren Großprojekte in der Innenstadt. Wir setzen auf eine sparsame Haushaltsführung und den Erhalt des gewohnten Stadtbildes.", 
+            score: { "AfD": 1 }
+        }
                 ] 
         },
 
-        //Frage 6
+        // Frage 6
         { 
         text: "💻 Digitalisierung: Wie modern soll unsere Verwaltung werden?", 
         answers: [
-            { 
-                party: "CSU", 
-                heading: "Digitale Verwaltung - Bürgernah und effizient.", 
-                explanation: "Wir treiben die bürgerorientierte Digitalisierung voran, um das Rathaus zu einem noch bürgernäheren und besser erreichbaren Dienstleister für alle Bürger zu machen.",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Wir machen das Rathaus 24/7 erreichbar. Alle wichtigen Anträge müssen digital möglich sein, um Wartezeiten und Bürokratie für die Bürger zu minimieren. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Rathaus 2.0: digital und transparent", 
-                explanation: "Wir schaffen eine moderne, bürgernahe Verwaltung durch arbeitnehmerfreundliche Öffnungszeiten, den Ausbau digitaler Services mit Online-Anträgen und digitaler Unterschrift sowie volle Transparenz bei politischen Entscheidungen durch einen barrierefreien Zugang zu Beschlüssen in einfacher Sprache.",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Infrastruktur zuerst: Wir schließen jedes Funkloch und bauen Glasfaser in alle Ortsteile aus, während wir das Online-Angebot der Stadt massiv erweitern. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Wahlfreiheit erhalten: Wir garantieren das Recht auf Papier-Formulare und stellen sicher, dass in allen städtischen Einrichtungen weiterhin bar bezahlt werden kann. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "Schwandorf-App ausbauen - Politik erlebbar machen", 
-                explanation: "Die Schwandorf-App soll ausgebaut werden, damit Termine direkt gebucht werden können. Zudem sollen Stadtratssitzungen live übertragen und Protokolle öffentlich einsehbar sein.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Digital und Analog muss die Devise sein", 
-                explanation: "Der Trend geht immer mehr zur digitalen Verwaltung. Dies unterstützen wir. Aber es muss auch weiterhin möglich sein, alle Verwaltungsangelegenheiten persönlich in der Behörde abzuwickeln, und dies ohne vorherige Terminvereinbarung mit einem Sachbearbeiter.",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Hightech für die Planung: Wir nutzen den 'Digitalen Zwilling' zur Verkehrssteuerung, garantieren aber gleichzeitig die dauerhafte Bargeldzahlung im Rathaus. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Zukunft planen: Mit einem 'Digitalen Zwilling' steuern wir Ressourcen effizienter und treiben den Glasfaser-Ausbau in jedem Winkel Schwandorfs voran. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
-                ] 
-        },
-    
-        //Frage 7
         { 
-        text: "👨‍👩‍👧‍👦 Familie: Wo ist der größte Handlungsbedarf?", 
-        answers: [
-            { 
-                party: "CSU", 
-                heading: "Familie im Mittelpunkt: Betreuung sichern, Bildung fördern.", 
-                explanation: "Der größte Handlungsbedarf liegt bei bedarfsgerechten Betreuungsplätzen für Jung und Alt sowie der zukunftsfähigen Weiterentwicklung unserer gesamten Schullandschaft.",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Soziale Entlastung: Wir fordern kostenloses Mittagessen in Kitas und Schulen sowie Betreuungsangebote, die zu Schichtarbeitszeiten passen. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Sicherheit für Kinder, Entlastung für Eltern", 
-                explanation: "Wir machen unsere Gemeinde zur Heimat für Familien, indem wir bedarfsgerechte Schul- und Kitaplätze garantieren, sichere Schulwege schaffen und das Angebot durch kostenlose Freizeitaktivitäten sowie eine unkomplizierte ‚offene‘ Kinderbetreuung beim Einkauf bereichern.",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFTn", 
-                explanation: "Kurze Wege für Kinder: Wir sichern unsere kleinen Grundschulen und fördern gleichzeitig barrierefreie Wohnformen für Senioren in der Heimat. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Fokus Familie: Wir fordern die Anerkennung der Erziehungsleistung zu Hause und bedarfsgerechte Kitaplätze für arbeitende Eltern. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "Wohnraum bezahlbar machen", 
-                explanation: "Bezahlbarer Wohnraum in Schwandorf ohne Angst vor willkürlichen Mieterhöhungen schafft Sicherheit. Kinderbetreuung muss so ausgebaut und bezahlbar sein, dass Geld keine Rolle spielt.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Bedarfsgerechte Betreuungsangebote in Ganztagesklassen, Kinderkrippen & Schülerhorten", 
-                explanation: "Die Betreuungsangebote in Ganztagesklassen, Kinderkrippen & Schülerhorten müssen so gestaltet werden, das sie möglichst flexibel auf die Bedürfnisse der Kinder und Eltern eingehen. In jeder Schule soll es einen Sozialpädagoge geben, um die Lehrkräfte in Konfliktfällen zu entlasten und vor allem vorbeugend tätig zu sein.",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Generationen-Zusammenhalt: Unser Fokus liegt auf barrierefreiem Wohnen für Senioren und der Förderung lokaler Nachbarschaftszentren. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Bildung vor Ort: Wir garantieren den Erhalt kleiner Grundschulen und setzen uns für moderne, gut ausgestattete Mittelschulen ein. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
+            heading: "Digital-Rathaus & Service-Offensive", 
+            explanation: "Vollständiger Ausbau digitaler Services (Online-Anträge/Unterschrift), Ausbau der Schwandorf-App und moderne Bürgerbüros mit arbeitnehmerfreundlichen Öffnungszeiten.", 
+            score: { "CSU": 1, "SPD": 1, "Grüne": 1, "Linke": 1, "Bürgerliste": 1 }
+        },
+        { 
+            heading: "Hybrid: Digital, aber mit Vor-Ort-Garantie", 
+            explanation: "Digitalisierung ist wichtig, aber das Rathaus muss für alle Bürger weiterhin persönlich und ohne vorherige Terminvereinbarung zugänglich bleiben.", 
+            score: { "ÖDP": 1, "UW": 1 }
+        },
+        { 
+            heading: "Transparenz durch Live-Übertragungen", 
+            explanation: "Wir fordern, Stadtratssitzungen live im Internet zu übertragen und digital zu archivieren, um die politische Teilhabe für alle Bürger zu erhöhen.", 
+            score: { "Freie Wähler": 1, "Linke": 1, "Grüne": 1, "AfD": 1 }
+        },
+        { 
+            heading: "Schlanke Verwaltung & Mitbestimmung", 
+            explanation: "Fokus auf radikale Vereinfachung der Prozesse, mehr direkte Bürgerbeteiligung und volle Transparenz bei allen politischen Beschlüssen.", 
+            score: { "AfD": 1, "Grüne": 1 }
+        }
                 ] 
         },
     
-        //Frage 8
+        // Frage 7
+        { 
+        text: "👨‍👩‍👧‍👦 Familie: Wo ist der größte Handlungsbedarf bei Schulen und Betreuung?", 
+        answers: [
+        { 
+            heading: "Mittelschulkonzept & Kita-Ausbau", 
+            explanation: "Wir setzen das bestehende Mittelschulkonzept konsequent um, stärken die Mittagsbetreuung und schaffen bedarfsgerechte Kitas in allen Ortsteilen.", 
+            score: { "CSU": 1, "Bürgerliste": 1 }
+        },
+        { 
+            heading: "Neubau-Turbo für den Kreuzberg", 
+            explanation: "Wir fordern den schnellstmöglichen Neubau der Mittelschule am Kreuzberg (evtl. als Campus mit Dachelhofen) und moderne Ganztagsangebote.", 
+            score: { "SPD": 1, "Freie Wähler": 1 }
+        },
+        { 
+            heading: "Spezial-Umbau: Grundschule & Kita", 
+            explanation: "Nach dem Mittelschul-Neubau soll das Kreuzberg-Gebäude gezielt zur Grundschule mit integriertem Kindergarten umgebaut werden.", 
+            score: { "UW": 1 }
+        },
+        { 
+            heading: "Ganzheitliche Bildung & Schul-Sozialarbeit", 
+            explanation: "Wir fordern Sozialpädagogen an jeder Schule, flexible Betreuungsmodelle und eine inklusive Bildung, die niemanden zurücklässt.", 
+            score: { "ÖDP": 1, "Grüne": 1, "Linke": 1 }
+        },
+        { 
+            heading: "Sozialer Schutz & Frauenhaus", 
+            explanation: "Familienpolitik bedeutet auch Schutz: Wir fordern die Einrichtung eines Frauenhauses in Schwandorf und bezahlbare Kitas für alle Einkommensklassen.", 
+            score: { "Linke": 1, "UW": 1 }
+        },
+        { 
+            heading: "Sichere Wege & 'Offene' Betreuung", 
+            explanation: "Priorität für sichere Schulwege und innovative Konzepte wie eine unkomplizierte Kurzzeit-Kinderbetreuung während der Erledigungen in der Stadt.", 
+            score: { "Grüne": 1 }
+        }
+                ] 
+        },
+    
+        // Frage 8
         { 
         text: "🤝 Ehrenamt: Wie stärken wir die Bürgerbeteiligung in Schwandorf?", 
         answers: [
-            { 
-                party: "CSU", 
-                heading: "Mitmachen und mitgestalten: Bürgerbeteiligung stärken", 
-                explanation: "Stärken der Bürgerbeteiligung durch die Fortführung des Bürgerhaushalts, den Dialog mit dem Ehrenamt und die direkte Einbeziehung bei Projekten wie Erneuerbare-Energien.",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Wertschätzung zeigen: Mit einem SAD-Pass erhalten Ehrenamtliche freien ÖPNV und vergünstigten Zugang zu allen städtischen Freizeitangeboten. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Ehrenamt unterstützen und belohnen", 
-                explanation: "Wir stärken das gesellschaftliche Miteinander durch eine enge Zusammenarbeit mit Vereinen, die wir sachlich und finanziell unterstützen, würdigen bürgerschaftliches Engagement durch einen Ehrenamtsbonus und schaffen mit einer Freiwilligenbörse die nötige Struktur für ein lebendiges Ehrenamt.",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Schluss mit dem Papierkrieg: Wir unterstützen unsere Vereine aktiv bei bürokratischen Hürden durch einen zentralen Ansprechpartner im Rathaus. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Bürger entscheiden: Wir wollen Hürden für Bürgerentscheide senken, damit die Schwandorfer bei Großprojekten das letzte Wort haben. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "Vereine unterstützen und fördern", 
-                explanation: "Mit der Stadt soll ein Format entstehen, in dem Vereine sich und ihre Aufgaben vorstellen. So wird Nachwuchs gewonnen, das Interesse der Bevölkerung gestärkt und das Ehrenamt gefördert.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Mehr Demokratie, Bürgerbeteiligung & Transparenz wagen.", 
-                explanation: "Stärken der lokalen Demokratie durch Live-Streams aus dem Stadtrat, den Ausbau der Bürgerbeteiligung (Bürgerräte & Ratsbegehren), ein Jugendparlament mit eigenem Budget sowie die Aufstockung des Bürgerhaushalts auf 200.000 Euro bei gleichzeitiger Sicherung der Vereinsförderung.",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Moderne Beteiligung: Wir integrieren das Tool 'openDemokratie' auf der Stadtseite und führen einen Bürgerhaushalt für eigene Projekte ein. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Ehre, wem Ehre gebührt: Wir führen einen jährlichen Tag des Ehrenamts ein und fördern digitale Beteiligung über Online-Petitionstools. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
+        { 
+            heading: "Bürgerhaushalt & Direkter Dialog", 
+            explanation: "Fortführung und Aufstockung des Bürgerhaushalts, enger Dialog mit Vereinen und direkte Beteiligung der Bürger bei großen Zukunftsprojekten.", 
+            score: { "CSU": 1, "Bürgerliste": 1, "ÖDP": 1, "SPD": 1 }
+        },
+        { 
+            heading: "Jugendparlament & Bürgerräte", 
+            explanation: "Wir fordern ein Jugendparlament mit eigenem Budget, die Einführung von Bürgerräten und Live-Streams aus dem Stadtrat für maximale Transparenz.", 
+            score: { "ÖDP": 1, "Grüne": 1, "Linke": 1 }
+        },
+        { 
+            heading: "Bürokratieabbau & Service-Stelle", 
+            explanation: "Schutz des Ehrenamts vor überzogener Bürokratie durch zentrale Anlaufstellen im Rathaus, um Vereine bei Organisation und Verwaltung zu entlasten.", 
+            score: { "Freie Wähler": 1, "SPD": 1, "UW": 1 }
+        },
+        { 
+            heading: "Sportamt & Vereins-Marketing", 
+            explanation: "Einrichtung eines eigenen Sportamts im Rathaus und Schaffung von Formaten, in denen Vereine sich zur Nachwuchsgewinnung der Öffentlichkeit präsentieren können.", 
+            score: { "UW": 1, "Linke": 1 }
+        },
+        { 
+            heading: "Ehrenamts-Bonus & Freiwilligenbörse", 
+            explanation: "Einführung eines finanziellen Ehrenamtsbonus, Aufbau einer Freiwilligenbörse und stärkere finanzielle Unterstützung für engagierte Bürger.", 
+            score: { "Grüne": 1, "SPD": 1 }
+        },
+        { 
+            heading: "Direkte Demokratie & Bürgerentscheide", 
+            explanation: "Hürden für Bürgerentscheide senken: Bei teuren Großprojekten sollen die Schwandorfer direkt abstimmen und das letzte Wort haben.", 
+            score: { "AfD": 1 }
+        }
                 ] 
         },
 
-        //Frage 9       
+        // Frage 9
         { 
         text: "🚲 Verkehr: Wie sieht die Mobilität der Zukunft in Schwandorf aus?", 
         answers: [
-            { 
-                party: "CSU", 
-                heading: "Vernetzte Mobilität für alle Verkehrsmittel", 
-                explanation: "Wir setzen auf einen Mix: Besserer Bahnanschluss, Ausbau des Radwegenetzes und wichtige Straßenprojekte wie die Globusspange und eine zweite Naabbrücke für flüssigen Verkehr.",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Lebenswerte Quartiere: Wir setzen auf konsequente Verkehrsberuhigung in Wohnvierteln und garantieren absolut sichere Schulwege für unsere Kinder. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Wir wollen eine Bedarfsgerechte Gestaltung der Mobiliät", 
-                explanation: "Bedarfsgerechte Anbindung aller aussenliegenden Ortsteile, Stärkung des ÖPNV, Verkehr auch autofrei denken. Der Radverkehr hat eigene Trassen, auf denen man schnell vorwärts kommt",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Beste Anbindung: Wir kämpfen für die Reaktivierung des Bahnhalts Klardorf und sichern die Erreichbarkeit der City durch kostenloses Kurzzeitparken. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Freie Fahrt: Wir sichern das kostenlose Parken in der City und unterstützen den Ausbau öffentlicher E-Ladestellen auf marktwirtschaftlicher Basis. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "ÖPNV und Fahrrad in Symbiose mit dem Individualverkehr ", 
-                explanation: "Der ÖPNV soll verbessert, Radfahren sicherer und attraktiver werden. Carsharing-Angebote sollen dafür sorgen, dass nicht jeder ein eigenes Auto braucht.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Schwandorf bewegt sich: Bus, Bahn und Rad vorrangig!", 
-                explanation: "Wir wollen eine Verbesserung des öffentlichen Personennahverkehrs durch eine bessere Verzahnung der Fahrpläne von Bus und Bahn und einer Ausweitung der Stadtbuslinien (u. a. zum Industriegebiet nach Wackersdorf).",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Innovativ vernetzt: Wir reaktivieren den Bahnhalt Klardorf und führen flexible Rufbusse (On-Demand) für alle Ortsteile ein. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Modern mobil: Wir bauen sichere Stellplätze am Bahnhof, ein lückenloses Radnetz und führen flexible Rufbusse für die ganze Stadt ein. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
-                ] 
+        { 
+            heading: "Multimodaler Mix & Infrastruktur", 
+            explanation: "Wir setzen auf eine Symbiose: Ausbau des Radwegenetzes, barrierefreier Bahnhof und wichtige Straßenprojekte wie die Globusspange oder die zweite Naabbrücke.", 
+            score: { "CSU": 1, "Bürgerliste": 1, "UW": 1 }
+        },
+        { 
+            heading: "Fokus Radverkehr & ÖPNV-Offensive", 
+            explanation: "Vorrang für Bus, Bahn und Rad! Wir fordern eigene Rad-Schnelltrassen, E-Stadtbusse und eine bessere Verzahnung der Fahrpläne, auch ins Umland.", 
+            score: { "Grüne": 1, "ÖDP": 1, "Linke": 1, "SPD": 1, "UW": 1 }
+        },
+        { 
+            heading: "Tempo 30 & Sicherheit in Wohngebieten", 
+            explanation: "Für mehr Lebensqualität und Sicherheit auf Schulwegen fordern wir flächendeckend Tempo 30 in allen Schwandorfer Wohngebieten.", 
+            score: { "SPD": 1, "Freie Wähler": 1 }
+        },
+        { 
+            heading: "Pendler-Spezial: Regensburg & Bahn", 
+            explanation: "Schwandorf muss besser an Regensburg angebunden werden. Wir fordern eine Optimierung der Bahnanbindung und einen konsequenten Ausbau für Pendler.", 
+            score: { "Bürgerliste": 1, "UW": 1, "CSU": 1 }
+        },
+        { 
+            heading: "Carsharing & Innovative Mobilität", 
+            explanation: "Wir wollen den Individualverkehr durch attraktive Carsharing-Angebote ergänzen und die Mobilität bedarfsgerecht und autofrei weiterentwickeln.", 
+            score: { "Linke": 1, "Grüne": 1 }
+        },
+        { 
+            heading: "Leistungsfähige Straßen & Brücken", 
+            explanation: "Der Fokus muss auf dem Ausbau der Straßeninfrastruktur und Brücken liegen, um eine leistungsfähige Verbindung für den gesamten Landkreis zu sichern.", 
+            score: { "AfD": 1 }
+        }
+            ] 
         },
     
-        //Frage 10
+        // Frage 10
         { 
-        text: "🍺 Schmidt-Bräu-Areal: Wie soll dieses Gelände genutzt werden?", 
+        text: "🍺 Schmidt-Bräu-Areal: Wie soll dieses zentrale Gelände genutzt werden?", 
         answers: [
-            { 
-                party: "CSU", 
-                heading: "Das Areal: verantwortungsvoll in die Zukunft.", 
-                explanation: "Wir wollen die Nachnutzung dieses zentralen Areals verantwortungsvoll und im Dialog mit den Bürgern neu denken, um eine nachhaltige und wertvolle Entwicklung für die Stadt zu sichern.",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Das Herzstück der Stadt beleben: Wir setzen auf einen modernen Neubau für Bildung und Kultur, der Platz für die Musikschule und einen großen Bürgersaal bietet. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Eine der Allgemeinheit dienliche Nutzung des Schmidtbräugeländes", 
-                explanation: "Der Marktplatz und das Schmidtbräugelände können zu einem lebendigen Stadtzentrum zusammengeführt werden. Jetzt handeln – nicht weiter verschieben und warten, bis die Kosten ins unermessliche wachsen",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Die City stärken: Wir fordern kleinteilige, inhabergeführte Läden und eine Tiefgarage unter dem Gelände, um die Parksituation in der Innenstadt zu lösen. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Entspannt einkaufen: Wir setzen uns für den Bau einer Tiefgarage unter dem Areal ein, um den Parkdruck in der Innenstadt spürbar zu mindern. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "Bürgerhaus und kommunaler Wohnungsbau", 
-                explanation: "Das Areal soll günstiges Wohnen ermöglichen und Raum für Kultur und Begegnung bieten. Ein Bürgerhaus wird Heimat für Vereine und Veranstaltungen.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Bebauung mit \"Frequenzbringer\" für die Innenstadt.", 
-                explanation: "Um die Innenstadt zu beleben brauchen wir \"Magneten\" die Menschen in die Stadt bringen. Deshalb wollen wir das Schmidt-Bräu Gelände mit einem Mix aus Wohnungen und öffentlicher Nutzung wie der Bibliothek, der Musikschule oder der Volkshochschule revitalisieren.",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Historie trifft Moderne: Wir wollen bestehende Gebäude sanieren und dort ein Kulturzentrum einrichten, das die Geschichte des Areals atmet. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Natur und Handel vereinen: Wir setzen auf eine unbebaute Erholungsfläche kombiniert mit kleinteiligen, inhabergeführten Läden am Rand des Geländes. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
+        { 
+            heading: "Kultur- & Bildungszentrum umsetzen", 
+            explanation: "Wir realisieren zügig das beschlossene Konzept: Stadtbibliothek, Musikschule, VHS und Bürgersaal ziehen an den Marktplatz, ergänzt durch Wohnungsbau.", 
+            score: { "SPD": 1, "Bürgerliste": 1, "ÖDP": 1, "CSU": 1 }
+        },
+        { 
+            heading: "Innenstadt-Magnet & Frequenzbringer", 
+            explanation: "Das Areal braucht 'Magneten', die Menschen in die Stadt ziehen. Wir fordern einen Mix aus öffentlicher Nutzung, Wohnungen und Gastronomie.", 
+            score: { "ÖDP": 1, "Grüne": 1, "SPD": 1 }
+        },
+        { 
+            heading: "Wirtschafts-Fokus & Parklösung", 
+            explanation: "Stärkung der City durch kleinteilige, inhabergeführte Läden und eine Tiefgarage unter dem Gelände, um das Parkplatzproblem der Innenstadt zu lösen.", 
+            score: { "Freie Wähler": 1 }
+        },
+        { 
+            heading: "Bezahlbares Wohnen & Bürgerhaus", 
+            explanation: "Wir priorisieren auf dem Gelände den kommunalen Wohnungsbau für günstige Mieten und schaffen ein Bürgerhaus als Heimat für Vereine und Begegnung.", 
+            score: { "Linke": 1 }
+        },
+        { 
+            heading: "Stopp für Prestigeprojekte", 
+            explanation: "Wir lehnen teure Großprojekte auf dem Areal ab und fordern eine sparsame Haushaltsführung, die sich an den realen Bedürfnissen der Bürger orientiert.", 
+            score: { "AfD": 1 }
+        },
+        { 
+            heading: "Bürgerdialog & Neue Denkansätze", 
+            explanation: "Die Nachnutzung muss im direkten Dialog mit den Bürgern neu gedacht werden, um eine wirklich wertvolle und nachhaltige Entwicklung zu garantieren.", 
+            score: { "CSU": 1, "UW": 1 }
+        }
                 ] 
         },
 
-        //Frage 11
+        // Frage 11
         { 
-        text: "🏥 Gesundheit: Wie sichern wir die medizinische Versorgung 2026?", 
+        text: "🏥 Gesundheit & Soziales: Wie sichern wir die Versorgung 2026?", 
         answers: [
-            { 
-                party: "CSU", 
-                heading: "Ärztliche Versorgung sichern und verbessern.", 
-                explanation: "Aktiv für die Sicherung und die gezielte Verbesserung der ärztlichen Versorgung in unserem gesamten Stadtgebiet einsetzen, um die Gesundheit aller zu gewährleisten.",
-                score: { "CSU": 1 }
-            },
-            { 
-                party: "SPD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Gesundheit ist keine Ware: Wir fordern Krankenhäuser zurück in öffentliche Hand und eine Hebammen-Offensive mit besserer Bezahlung und Festanstellung. (180 Zeichen Test)",
-                score: { "SPD": 1 }
-            },
-            { 
-                party: "Grüne", 
-                heading: "Schwandorf - Zentrum der medizinischen Versorgung", 
-                explanation: "Kommunale Facharztpraxis, Anwerbung von Ärzten und Therapeuten, zentral gelegene soziale oder genossenschaftliche Wohnanlage für Senioren mit integriertem (oder nahegelegenem) Ärztehaus",
-                score: { "Grüne": 1 }
-            },
-            { 
-                party: "Freie Wähler", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Ärzte aufs Land: Wir fördern aktiv neue Praxen im Umland und bauen Bürokratie ab, damit Mediziner wieder mehr Zeit für ihre Patienten haben. (180 Zeichen Test)",
-                score: { "Freie Wähler": 1 }
-            },
-            { 
-                party: "AfD", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Versorgung sichern: Wir fordern mobile Ärzteteams für das Umland und die Einrichtung einer eigenen Fachstation für psychische Gesundheit im Landkreis. (180 Zeichen Test)",
-                score: { "AfD": 1 }
-            },
-            { 
-                party: "Linke", 
-                heading: "Anwerbeprogramm für Allgemein- und Fachmediziner", 
-                explanation: "Die Stadt soll für Mediziner attraktiv werden, indem sie Praxisräume zu guten Konditionen bereitstellt. Besonders die Kindernotfallversorgung muss deutlich verbessert werden.",
-                score: { "Linke": 1 }
-            },
-            { 
-                party: "ÖDP", 
-                heading: "Wohnortnahe Versorgung aufrecht erhalten.", 
-                explanation: "Sichern von wohnortnahe Gesundheitsversorgung durch ein zentrales Ärztehaus, stärken Apotheken und Hausarztpraxen vor Ort und fordern von Bund und Land eine verlässliche Finanzierung unserer Krankenhäuser und Seniorenheime. Nur so lässt sich eine sichere, flächendeckende Rund-um-die-Uhr-Versorgung aufrechterhalten.",
-                score: { "ÖDP": 1 }
-            },
-            { 
-                party: "UW", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Zukunftssichere Medizin: Wir kämpfen für den Erhalt der Kliniken und fördern die digitale Vernetzung zwischen Hausärzten und Spezialisten. (180 Zeichen Test)",
-                score: { "UW": 1 }
-            },
-            { 
-                party: "Bürgerliste", 
-                heading: "ÜBERSCHRIFT", 
-                explanation: "Fokus Grundversorgung: Wir unterstützen die Ansiedlung junger Ärzte in Schwandorf und setzen uns für den Erhalt der lokalen Klinikstrukturen ein. (180 Zeichen Test)",
-                score: { "Bürgerliste": 1 }
-            }
-                ] 
+        { 
+            heading: "Ärztliche Versorgung & Fachärzte", 
+            explanation: "Wir setzen uns aktiv für die Ansiedlung neuer Ärzte und die Sicherung der bestehenden Praxen im gesamten Stadtgebiet ein.", 
+            score: { "CSU": 1, "Bürgerliste": 1, "SPD": 1 }
+        },
+        { 
+            heading: "Zentrales Ärztehaus am Marktplatz", 
+            explanation: "Wir fordern ein modernes Ärztehaus in zentraler Lage, um Fachärzte nach Schwandorf zu locken und kurze Wege für Patienten zu schaffen.", 
+            score: { "SPD": 1, "ÖDP": 1, "Grüne": 1 }
+        },
+        { 
+            heading: "Frauenhaus für Schwandorf", 
+            explanation: "Soziale Sicherheit bedeutet Schutz: Wir fordern als einzige Kraft die Einrichtung eines Frauenhauses in Schwandorf, um Betroffenen vor Ort Hilfe zu bieten.", 
+            score: { "UW": 1 }
+        },
+        { 
+            heading: "Kommunale Praxis & Senioren-Campus", 
+            explanation: "Wir wollen eine städtisch geführte Facharztpraxis und Wohnanlagen für Senioren mit direktem Zugang zu medizinischen Dienstleistern.", 
+            score: { "Grüne": 1 }
+        },
+        { 
+            heading: "Anwerbe-Bonus & Kindernotfallhilfe", 
+            explanation: "Günstige Praxisräume als Anreiz für junge Mediziner und eine massive Verbesserung der medizinischen Versorgung für Kinder in Notfällen.", 
+            score: { "Linke": 1 }
+        },
+        { 
+            heading: "Klinik-Erhalt & Rettungsdienste", 
+            explanation: "Schutz der wohnortnahen Krankenhäuser vor Schließungen und eine bessere Ausstattung für THW, Feuerwehr und Rettungsdienste.", 
+            score: { "Freie Wähler": 1, "AfD": 1, "ÖDP": 1 }
+        }
+            ] 
         }
     ];
 
@@ -1173,6 +870,28 @@ content = `
             Die Reihenfolge der Parteien sind von links nach rechts an der amtlichen Bekanntmachung der Wahlvorschläge gemäß § 52 GLKrWO dargestellt</strong>
     </p>`;
 
+    } else if(type === 'faq') {
+    content = `
+        <h2>Häufig gestellte Fragen (FAQ)</h2>
+        <div style="text-align: left; line-height: 1.6; font-size: 0.95rem;">
+            <p><strong>1. Wer hat den SAD-O-Mat erstellt?</strong><br>
+            Dies ist ein privates, ehrenamtliches Projekt. Es besteht keine Verbindung zu einer politischen Partei oder der Stadtverwaltung.</p>
+            
+            <p><strong>2. Wie wurden die Fragen und Antworten ausgewählt?</strong><br>
+            Die Inhalte basieren auf einer Analyse der öffentlich zugänglichen Wahlprogramme der 9 Parteien für die Kommunalwahl 2026. Es wurden Themen gewählt, die für Schwandorf aktuell von hoher Relevanz sind. Von einigen Fraktionen wurden Antworten durch einen Fragenkatalog beantwortet.</p>
+            
+            <p><strong>3. Warum erhalte ich kein 100% Match?</strong><br>
+            Das Tool berechnet die Übereinstimmung basierend auf deinen Antworten im Vergleich zu den Positionen der Parteien. Da Parteien oft ähnliche Ziele bei unterschiedlichen Themen verfolgen, verteilen sich die Punkte manchmal auf mehrere Gruppen.</p>
+            
+            <p><strong>4. Sind meine Antworten anonym?</strong><br>
+            Ja. Deine Auswahl findet nur in deinem Browser statt. Es werden keine Profile erstellt und keine persönlichen Antworten auf Servern gespeichert.</p>
+            
+            <p><strong>5. Ist das Ergebnis eine Wahlempfehlung?</strong><br>
+            Nein. Der SAD-O-Mat ist ein reines Informationsangebot. Er soll dazu anregen, sich intensiver mit den Programmen der Parteien auseinanderzusetzen. Die endgültige Wahlentscheidung liegt ganz bei dir.</p>
+            
+            <p><strong>6. Eine Information ist veraltet/falsch – was tun?</strong><br>
+            Kommunalpolitik ist dynamisch. Wenn du einen Fehler findest, schreibe bitte eine kurze E-Mail an <a href="mailto:sad-o-mat@gmx.de" style="color: var(--accent); text-decoration: underline;">sad-o-mat@gmx.de</a>.</p>
+        </div>`;
 
     } else if(type === 'service') {
     content = `
@@ -1260,7 +979,7 @@ content = `
                     <p><strong>Verantwortlich für den Inhalt:</strong><br>
                     Wilhelm Sturm<br>
                     Rachelstraße 9, 92421 Schwandorf<br><br>
-                    E-Mail: sad-o-mat@gmx.de</p>
+                    E-Mail: <a href="mailto:sad-o-mat@gmx.de" style="color: var(--accent); text-decoration: underline;">sad-o-mat@gmx.de</a></p>
                     
                     <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.2); margin: 15px 0;">
                     <p>Die Reihenfolge der Darstellung orientiert sich an der amtlichen Bekanntmachung der Wahlvorschläge gemäß <strong>§ 52 GLKrWO</strong>.<p/>
@@ -1298,5 +1017,4 @@ content = `
 </script>
 </body>
 </html>
-
 
