@@ -6,272 +6,7 @@
     <title>SAD-O-Mat 2026 | Schwandorf wählt</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗳️</text></svg>">
     <script defer src="https://cloud.umami.is/script.js" data-website-id="05d86370-70fe-45b8-9760-ae309771162f"></script>
-
-    <style>
-        :root {
-            --glass: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.25);
-            --accent: #00d2ff;
-            --text: #ffffff;
-        }
-
-        @keyframes finish-glow {
-    0% { box-shadow: 0 0 15px var(--accent); transform: scaleY(1); }
-    50% { box-shadow: 0 0 30px #ffffff, 0 0 10px var(--accent); transform: scaleY(1.5); }
-    100% { box-shadow: 0 0 15px var(--accent); transform: scaleY(1); }
-}
-
-.progress-finished {
-    animation: finish-glow 0.8s ease-in-out 2;
-    background: #ffffff !important;
-}
-
-        body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #004e92 0%, #000428 100%);
-            background-attachment: fixed;
-            color: var(--text);
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            min-height: 100vh; 
-            margin: 0; 
-            padding: 20px;
-        }
-        
-        .quiz-container {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            padding: 30px; border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            max-width: 800px; width: 100%; margin-top: auto; margin-bottom: auto;
-        }
-
-        footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.8rem;
-            opacity: 0.8;
-            width: 100%;
-            padding-bottom: 20px;
-        }
-
-        footer a { color: white; text-decoration: none; margin: 0 10px; font-weight: bold; 
-        }
-
-        footer a:hover { color: var(--accent); 
-        }
-
-        .share-footer-btn {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-
-        .share-footer-btn:hover { transform: scale(1.05); filter: brightness(1.1); 
-        }
-
-        .nav-buttons { display: flex; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; 
-        }
-
-        .nav-btn {
-            flex: 1; background: var(--glass); border: 1px solid var(--glass-border);
-            color: white; padding: 12px 5px; border-radius: 12px; cursor: pointer;
-            font-size: 0.85rem; font-weight: 500; transition: 0.3s;
-            min-width: 120px;
-        }
-
-        .nav-btn:hover { background: rgba(255, 255, 255, 0.25); border-color: var(--accent); 
-        }
-
-        h1 { text-align: center; margin: 0 0 10px 0; font-weight: 800; 
-        }
-
-        .progress-container { width: 100%; background: rgba(255, 255, 255, 0.1); height: 8px; border-radius: 10px; margin: 20px 0 10px 0; 
-        }
-
-        #progress-bar { width: 0%; height: 100%; background: var(--accent); border-radius: 10px; transition: 0.4s; box-shadow: 0 0 15px var(--accent); 
-        }
-
-        .step-info { text-align: center; font-size: 0.85rem; opacity: 0.7; margin-bottom: 25px; 
-        }
-        
-        .question { font-size: 1.4rem; font-weight: 600; margin-bottom: 25px; text-align: center; line-height: 1.3; 
-        }
-
-        .option-card {
-            background: var(--glass); border: 1px solid var(--glass-border);
-            padding: 18px 25px; margin-bottom: 15px; border-radius: 16px;
-            cursor: pointer; transition: 0.2s; font-size: 1.05rem;
-        }
-
-        .option-card:hover { background: rgba(255, 255, 255, 0.2); border-color: var(--accent); transform: scale(1.01); 
-        }
-
-        .hidden { display: none !important; 
-        }
-
-        .modal { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.85); display: flex; align-items: center; 
-            justify-content: center; z-index: 1000; backdrop-filter: blur(5px);
-        }
-
-        .modal-content { 
-            background: #004e92; padding: 30px; border-radius: 20px; 
-            max-width: 500px; width: 90%; position: relative; 
-            border: 2px solid var(--accent); box-shadow: 0 0 30px rgba(0,210,255,0.3);
-            max-height: 85vh; overflow-y: auto;
-        }
-
-        .close-modal { 
-            position: absolute; top: 15px; right: 20px; font-size: 32px; 
-            cursor: pointer; color: var(--accent); font-weight: bold;
-        }
-
-        .party-score {
-            display: flex; align-items: center; background: rgba(255,255,255,0.08);
-            margin-bottom: 12px; padding: 12px 20px; border-radius: 16px; border: 1px solid var(--glass-border);
-        }
-
-        .party-logo { width: 45px; height: 45px; background: white; border-radius: 50%; margin-right: 18px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; 
-        }
-
-        .party-logo img { width: 80%; height: 80%; max-height: 85%; 
-        }
-
-        .party-info { flex-grow: 1; display: flex; justify-content: space-between; align-items: center; 
-        }
-
-        .party-percent { font-size: 1.2rem; color: var(--accent); font-weight: 800; 
-        }
-
-        .restart-btn { width: 100%; padding: 18px; border-radius: 16px; border: none; background: var(--accent); color: #000428; font-weight: 800; cursor: pointer; margin-top: 25px; 
-        }
-
-        .intro-card {
-            text-align: center;
-            padding: 10px 10px 30px 10px;
-        }
-
-        .intro-title { font-size: 1.8rem; color: #fff; margin-bottom: 20px; line-height: 1.2; 
-        }
-
-        .intro-text { font-size: 1.05rem; line-height: 1.6; margin-bottom: 20px; opacity: 0.9; 
-        }
-
-        .focus-box { 
-            background: rgba(0, 210, 255, 0.1); 
-            border-left: 4px solid var(--accent); 
-            padding: 15px; margin: 25px 0; text-align: left; border-radius: 0 16px 16px 0; 
-        }
-
-        .focus-list { list-style: none; padding: 0; margin: 10px 0 0 0; 
-        }
-
-        .focus-list li { margin-bottom: 10px; display: flex; align-items: center; font-size: 0.95rem; 
-        }
-
-        .focus-list span { margin-right: 12px; font-size: 1.2rem; 
-        }
-
-        .start-btn { 
-            background: var(--accent); color: #000428; border: none; padding: 18px 45px; 
-            font-size: 1.2rem; font-weight: 800; border-radius: 50px; cursor: pointer; 
-            transition: 0.3s; box-shadow: 0 0 20px rgba(0,210,255,0.4);
-        }
-
-        .start-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
-        
-        .disclaimer-box {
-            background-color: #fff9db;
-            border: 1px solid #f59e0b;
-            border-left: 6px solid #f59e0b;
-            color: #92400e;
-            padding: 15px;
-            margin: 20px auto;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            max-width: 600px;
-            line-height: 1.5;
-        }
-
-.answer-card {
-            background: var(--glass); 
-            backdrop-filter: blur(10px); 
-            -webkit-backdrop-filter: blur(10px); 
-            border: 1px solid var(--glass-border); 
-            border-radius: 16px; 
-            margin-bottom: 12px;
-            position: relative;
-            transition: all 0.3s ease; 
-            overflow: hidden;
-        }
-
-        .answer-card:hover {
-            background: rgba(255, 255, 255, 0.2); 
-            border-color: var(--accent); 
-            transform: translateY(-2px); 
-        }
-
-        .answer-card:active {
-            transform: scale(0.98);
-        }
-
-        .card-main {
-            padding: 20px;
-            padding-right: 50px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-
-        .card-heading {
-            color: var(--text); 
-            font-weight: 600;
-            font-size: 1rem;
-            line-height: 1.4;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2); 
-        }
-        .info-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: none;
-            background: #334155;
-            color: #fbbf24; 
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .info-text {
-            padding: 0 20px 20px 20px;
-            color: #94a3b8;
-            font-size: 0.85rem;
-            border-top: 1px solid #334155;
-            margin-top: -5px;
-            padding-top: 10px;
-        }
-
-        .hidden { display: none; 
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -287,26 +22,35 @@
         <h1>SAD-O-Mat 2026</h1>
 
         <div id="intro-step" class="intro-card">
-                <h2 class="intro-title">Schwandorf entscheidet – nicht Berlin! 🥨</h2>
-                <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">
-                    Fokus: Oberbürgermeister- & Stadtratswahl der Stadt Schwandorf
-                </p>
-                <p class="intro-text">
-                    Bei der Kommunalwahl geht es nicht um die große Weltpolitik, sondern um <strong>unser Zuhause</strong>. Viele wählen aus Frust über den Bund, vergessen dabei aber die Themen vor der eigenen Haustür.
-                </p>
-        <div class="focus-box">
-                <p><strong>Hier in Schwandorf entscheiden wir darüber:</strong></p>
-                    <ul class="focus-list">
-                        <li><span>🏘️</span> Zukunft unserer Innenstadt?</li>
-                        <li><span>🍺</span> Die Zukunft des Schmidt-Bräu-Areals?</li>
-                        <li><span>🏥</span> Sicherung der lokalen Gesundheitsversorgung?</li>
-                    </ul>
+    <h1>Das Andi-Duell</h1>
+    <p class="step-info" style="color: var(--accent); font-weight: bold;">Stichwahl am 22. März 2026</p>
+    
+    <div class="candidate-duel-container">
+        <div class="candidate-card" onclick="showCandidateDetails('feller')">
+            <div class="candidate-image-wrapper">
+                <img src="feller.png" alt="Andreas Feller" class="candidate-img" onerror="this.src='https://via.placeholder.com/150?text=Feller'">
+            </div>
+            <div class="candidate-label">Andreas Feller</div>
+            <div class="candidate-sub">Bürgerliste Schwandorf</div>
         </div>
-                <p class="intro-text" style="font-style: italic; font-size: 0.9rem;">
-                    Der SAD-O-MAT vergleicht deine Meinung neutral mit den Programmen der 9 lokalen Parteien.
-                </p>
-                <button class="start-btn" onclick="startQuiz()">Jetzt Match finden</button>
+
+        <div class="duel-vs">VS</div>
+
+        <div class="candidate-card" onclick="showCandidateDetails('wopperer')">
+            <div class="candidate-image-wrapper">
+                <img src="wopperer.png" alt="Andreas Wopperer" class="candidate-img" onerror="this.src='https://via.placeholder.com/150?text=Wopperer'">
+            </div>
+            <div class="candidate-label">Andreas Wopperer</div>
+            <div class="candidate-sub">CSU Schwandorf</div>
+        </div>
     </div>
+
+    <div class="focus-box">
+        <p>Wer passt besser zu deiner Vision für Schwandorf? Vergleiche die Positionen der Fraktionen beider Kandidaten zu den 10 Kernfragen.</p>
+    </div>
+
+    <button class="start-btn" onclick="startQuiz()">Vergleich starten 🗳️</button>
+</div>
 
     <div id="quiz-step" class="hidden">
         <div class="progress-container"><div id="progress-bar"></div></div>
@@ -363,7 +107,7 @@
     'Linke': 'https://www.die-linke-mittlere-oberpfalz.de/kommunalwahlen-2026/programm-und-kandidatinnen-im-landkreis-schwandorf/stadtrat-schwandorf/#c98187',
     'Bürgerliste': 'https://www.xn--brgerliste-schwandorf-8hc.de/programm/'
 };
-    //PArteilogos
+    //Parteilogos
     const partyLogos = {
         "CSU": "https://upload.wikimedia.org/wikipedia/commons/e/ee/CSU_Logo_since_2016.svg",
         "SPD": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Sozialdemokratische_Partei_Deutschlands%2C_Logo_um_2000.svg",
@@ -383,410 +127,173 @@
 
         // Frage 1
         { 
-        text: "🏠 Wohnraum: Wie bekämpfen wir den Mangel an bezahlbarem Wohnraum?", 
-        answers: [
+    text: "🏠 Wohnraum: Wie bekämpfen wir den Mangel an bezahlbarem Wohnraum?", 
+    answers: [
         { 
-            heading: "Städtische Baugesellschaft & Sozialer Wohnbau & Schmidt-Bräu Areal", 
-            explanation: "Wir gründen eine städtische Wohnungsbaugesellschaft (oder einen Eigenbetrieb), um aktiv sozialen Mietwohnungsbau zu schaffen und Altbauten zu sanieren oder Areale wie das Schmidt-Bräu-Gelände aktiv in städtischer Hand zu entwickeln.", 
-            score: { "SPD": 1, "ÖDP": 1, "Linke": 1, "Grüne": 1 }
+            heading: "Bauland schaffen, Leerstände reaktivieren & Nachverdichtung", 
+            explanation: "Der Fokus liegt auf der Schaffung von neuem Bauland und der konsequenten Nutzung von Lückenschlüssen sowie der Reaktivierung von Leerständen im gesamten Stadtgebiet.", 
+            score: { "Bürgerliste": 1 } 
         },
         { 
-            heading: "Bauland-Offensive & Einheimischenmodell", 
-            explanation: "Fokus auf neue Baugebiete in allen Ortsteilen, Lückenschluss und die Vergabe von Plätzen nach dem Einheimischenmodell, um Wohneigentum für Familien zu sichern.", 
-            score: { "CSU": 1, "Bürgerliste": 1, "UW": 1, "Grüne": 1 }
-        },
-        { 
-            heading: "Bau-Turbo & Modulbau", 
-            explanation: "Bauen ohne Bebauungsplan spart Zeit. Modulbau senkt Kosten. Wir fördern gemeinnützige Firmen durch Gewerbesteuerbefreiung.", 
-            score: { "Freie Wähler": 1 }
-        },
-        { 
-            heading: "Bürokratieabbau & Kostensenkung", 
-            explanation: "Wir fordern eine einfache Verwaltung und lehnen teure Prestigeprojekte ab, um die Baukosten und damit die Mieten indirekt zu senken.", 
-            score: { "AfD": 1 }
+            heading: "Heimat sichern durch das Einheimischenmodell", 
+            explanation: "Neben neuen Baugebieten und maßvoller Nachverdichtung soll die Vergabe von Plätzen prioritär nach dem Einheimischenmodell erfolgen, damit Heimat für Schwandorfer bezahlbar bleibt.", 
+            score: { "CSU": 1 } 
         }
-                ] 
-        },
+    ] 
+},
 
         // Frage 2
+{ 
+    text: "🌳 Umwelt: Welchen Fokus setzen wir beim Klimaschutz vor Ort?", 
+    answers: [
         { 
-        text: "🌳 Umwelt: Welchen Fokus setzen wir beim Klimaschutz vor Ort?", 
-        answers: [
-        { 
-            heading: "Energiewende durch Bürgerhand", 
-            explanation: "Wir priorisieren die Beteiligung der Bürger an PV- und Windanlagen sowie eine zügige kommunale Wärmeplanung für alle Stadtteile.", 
-            score: { "CSU": 1, "ÖDP": 1, "UW": 1, "Bürgerliste": 1 }
+            heading: "Innenbegrünung & Konzept 'Schwammstadt'", 
+            explanation: "Wir treiben die Innenbegrünung weiter voran und entwickeln Schwandorf zur 'Schwammstadt', um Regenwasser besser zu speichern und das Stadtklima natürlich zu kühlen.", 
+            score: { "Bürgerliste": 1 }
         },
         { 
-            heading: "Begrünung & Nachhaltige Stadtentwicklung", 
-            explanation: "Mehr Grünflächen, Entsiegelung (Schwammstadt) und eine verantwortungsvolle Bauleitplanung zur Kühlung und nachhaltigen Nutzung städtischer Flächen.", 
-            score: { "Grüne": 1, "Bürgerliste": 1, "Linke": 1, "SPD": 1, "Freie Wähler": 1 }
-        },
-        { 
-            heading: "Infrastruktur-Turbo: Fernwärme", 
-            explanation: "Wir forcieren den massiven Ausbau des Fernwärmenetzes (Abwärme ZMS), um Haushalte schnell von fossilen Brennstoffen wegzubringen.", 
-            score: {"Linke": 1 }
-        },
-        { 
-            heading: "Technologie-Offenheit & Wasserstoff", 
-            explanation: "Klimaschutz ohne Verbote: Wir setzen auf Wasserstoff-Technologie, dezentralen Hochwasserschutz und den Erhalt unserer Wälder.", 
-            score: { "Freie Wähler": 1 }
-        },
-        { 
-            heading: "Strenger Natur- & Artenschutz", 
-            explanation: "Verbot von Schottergärten, verbindliche Nachhaltigkeitsprüfungen bei Bauprojekten und Moorschutz im Stadtgebiet.", 
-            score: { "Grüne": 1, "ÖDP": 1 }
-        },
-        { 
-            heading: "Bezahlbarkeit vor Ideologie", 
-            explanation: "Klimaschutz darf nicht zu Lasten der Geringverdiener gehen. Wir lehnen Windkraft in Erholungsgebieten und neue Energie-Abgaben ab.", 
-            score: { "AfD": 1 }
+            heading: "Kommunaler Wärmeplan & Bürger-Energie", 
+            explanation: "Der Fokus liegt auf einem pragmatischen kommunalen Wärmeplan, der Energieoptimierung städtischer Gebäude und der Beteiligung der Bürger an Erneuerbare-Energien-Anlagen.", 
+            score: { "CSU": 1 }
         }
-                ] 
-        },
+    ] 
+},
 
         // Frage 3
+{ 
+    text: "🏀 Freizeit & Infrastruktur: Was ist die wichtigste Investition in unsere Infrastruktur?", 
+    answers: [
         { 
-        text: "🏀 Freizeit und Infrastruktur: Was ist die wichtigste Investition in unsere Infrastruktur?", 
-        answers: [
-        { 
-            heading: "Sportstadt-Offensive: Stadion & Hallen", 
-            explanation: "Wir sanieren das Sepp-Simon-Stadion (neue Laufbahn & LED-Flutlicht), bauen eine neue Sporthalle für Schulen/Vereine und sichern die Attraktivität unserer Bäder.", 
-            score: { "SPD": 1, "Bürgerliste": 1, "CSU": 1 }
+            heading: "Erhalt und Ertüchtigung vorhandener Einrichtungen", 
+            explanation: "Wir müssen unsere bestehenden Einrichtungen wie das Stadion und die Bäder aufrechterhalten, die über 50 Spielplätze pflegen und unsere Vereine konsequent stärken.", 
+            score: { "Bürgerliste": 1 }
         },
         { 
-            heading: "ÖPNV-Offensive & Ortsteil-Anbindung", 
-            explanation: "Ausbau des öffentlichen Nahverkehrs, dichtere Taktzeiten in alle Ortsteile und die Schaffung neuer Bahnhaltepunkte für Schwandorf.", 
-            score: { "Grüne": 1, "Linke": 1, "Bürgerliste": 1, "UW": 1, "SPD": 1 }
-        },
-        { 
-            heading: "Digitale & bauliche Großprojekte", 
-            explanation: "Wir fordern Glasfaser für jedes Haus und planen langfristig die zweite Naabbrücke, um die Innenstadt vom Durchgangsverkehr zu befreien.", 
-            score: { "ÖDP": 1 }
-        },
-        { 
-            heading: "Vereinsförderung durch neues Sportamt", 
-            explanation: "Ein eigenes Sportamt im Rathaus zur Unterstützung der Ehrenamtlichen und den Stadtpark als zentralen Festort stärken.", 
-            score: { "UW": 1 }
-        },
-        { 
-            heading: "Bewahrung & Ehrenamts-Schutz", 
-            explanation: "Keine teuren Prestigeprojekte: Wir konzentrieren uns auf den Erhalt bestehender Anlagen und die direkte Unterstützung lokaler Vereine.", 
-            score: { "AfD": 1, "Bürgerliste": 1 }
-        },
-        { 
-            heading: "Verkehrsentlastung: Brücken & Spangen", 
-            explanation: "die Innenstadt vom Durchgangsverkehr durch Projekte wie die Globus-Spange (Verbindung Brunnfeld nach Süden) oder eine zweite Naabbrücke.", 
-            score: { "Freie Wähler": 1 }
+            heading: "Öffentliche Nutzung des Stadions & Vielfalt", 
+            explanation: "Neben der Stärkung des Kulturangebots setzen wir uns massiv für die öffentliche Nutzung des Sepp-Simon-Stadions ein, damit diese Infrastruktur allen Bürgern zugute kommt.", 
+            score: { "CSU": 1 }
         }
-                ] 
-        },
+    ] 
+},
 
         // Frage 4
+{ 
+    text: "💼 Wirtschaft: Wie stärken wir den Standort Schwandorf nachhaltig?", 
+    answers: [
         { 
-        text: "💼 Wirtschaft: Wie stärken wir den Standort Schwandorf nachhaltig?", 
-        answers: [
-        { 
-            heading: "Gewerbe-Offensive & Neuansiedlung", 
-            explanation: "Wir weisen zügig neue Gewerbegebiete aus und entwickeln das interkommunale Gewerbegebiet weiter, um lokale Betriebe zu stärken und Abwanderung zu verhindern", 
-            score: { "CSU": 1, "Bürgerliste": 1, "UW": 1, "AfD": 1, "Freie Wähler" :1, "SPD": 1 }
+            heading: "Gewerbegebiete & Leerstands-Reaktivierung", 
+            explanation: "Wir müssen konsequent neue Gewerbegebiete ausweisen, aber gleichzeitig gezielt Leerstände reaktivieren und unsere bereits ansässigen Betriebe stärken.", 
+            score: { "Bürgerliste": 1 }
         },
         { 
-            heading: "Bildungsstandort & Hochschul-Anbindung", 
-            explanation: "Schwandorf braucht einen neuen Hochschulstandort (z.B. Außenstelle OTH). Zudem fördern wir die Wirtschaft durch einen runden Tisch mit allen Betrieben.", 
-            score: { "SPD": 1, "ÖDP": 1 }
-        },
-        { 
-            heading: "Fachkräfte durch Lebensqualität", 
-            explanation: "Gegen Fachkräftemangel hilft ein attraktiver Wohnort: Wir setzen auf niedrige Mieten, exzellente Kinderbetreuung und gute ÖPNV-Anbindung der Betriebe.", 
-            score: { "Grüne": 1, "Linke": 1 }
-        },
-        { 
-            heading: "Mittelstandsschutz & Bürokratieabbau", 
-            explanation: "Start-ups fördern und nachhaltige Investitionen durch niedrige Gewerbesteuern. Zudem entlasten wir den Mittelstand konsequent von Bürokratie.", 
-            score: { "Freie Wähler": 1, "AfD": 1, "ÖDP": 1 }
+            heading: "Starker Standort & Sichere Arbeitsplätze", 
+            explanation: "Schwandorf muss als starker Wirtschaftsstandort weiterentwickelt werden, um durch die Ansiedlung neuer Betriebe und die Unterstützung des Mittelstands krisenfeste Arbeitsplätze zu sichern.", 
+            score: { "CSU": 1 }
         }
-                ] 
-        },
+    ] 
+},
 
         // Frage 5
+{ 
+    text: "🏘️ Innenstadt: Wie beleben wir den Marktplatz?", 
+    answers: [
         { 
-        text: "🏘️ Innenstadt: Wie beleben wir den Marktplatz?", 
-        answers: [
-        { 
-            heading: "Fußgängerzone & Verweilqualität", 
-            explanation: "Wir wollen eine Verkehrsberuhigung (z.B. Friedrich-Ebert-Straße), Pop-up-Stores gegen Leerstand und mehr Grünflächen zum Verweilen.", 
-            score: { "CSU": 1, "Grüne": 1, "Linke": 1, "ÖDP": 1, "Freie Wähler" : 1 }
+            heading: "Veranstaltungsprogramm erweitern & Bürger-Engagement", 
+            explanation: "Wir wollen das Programm am Marktplatz ausbauen. Das funktioniert aber nur nachhaltig, wenn das Angebot von den Bürgern auch aktiv angenommen und genutzt wird.", 
+            score: { "Bürgerliste": 1 }
         },
         { 
-            heading: "Schmidt-Bräu & Bildungszentrum", 
-            explanation: "Schnellstmögliche Umsetzung des Projekts auf dem Schmidt-Bräu-Areal (Bibliothek, Musikschule, Wohnen) als neuer Frequenzbringer für das Zentrum.", 
-            score: { "SPD": 1, "ÖDP": 1, "Bürgerliste": 1 }
-        },
-        { 
-            heading: "Event-Zentrum & Marktplatz-Programm", 
-            explanation: "Leerstände abbauen, City-Management stärken und durch Veranstaltungen, Kultur und Gastronomie neue Impulse am Marktplatz setzen.", 
-            score: { "Bürgerliste": 1, "Freie Wähler": 1, "SPD": 1 }
-        },
-        { 
-            heading: "Attraktivität durch Nahversorgung", 
-            explanation: "Fokus auf die Ansiedlung von Bauernläden, ein Kulturzentrum im Mehrgenerationenhaus und eine bessere Anbindung des Bahnhofs ans Zentrum.", 
-            score: { "Grüne": 1, "UW": 1 }
-        },
-        { 
-            heading: "Sparsame Stadtentwicklung", 
-            explanation: "Keine teuren Großprojekte in der Innenstadt. Wir setzen auf eine sparsame Haushaltsführung und den Erhalt des gewohnten Stadtbildes.", 
-            score: { "AfD": 1 }
+            heading: "Event-Mix & Ansiedlungsmanagement", 
+            explanation: "Wir setzen auf einen Mix aus attraktiven Veranstaltungen und einem gezielten Management gegen Leerstände, um den Marktplatz als lebendiges Zentrum neu zu beleben.", 
+            score: { "CSU": 1 }
         }
-                ] 
-        },
+    ] 
+},
 
         // Frage 6
+{ 
+    text: "💻 Digitalisierung: Wie modern soll unsere Verwaltung werden?", 
+    answers: [
         { 
-        text: "💻 Digitalisierung: Wie modern soll unsere Verwaltung werden?", 
-        answers: [
-        { 
-            heading: "Digital-Rathaus & Service-Offensive", 
-            explanation: "Vollständiger Ausbau digitaler Services (Online-Anträge/Unterschrift), Ausbau der Schwandorf-App und moderne Bürgerbüros mit arbeitnehmerfreundlichen Öffnungszeiten.", 
-            score: { "CSU": 1, "SPD": 1, "Grüne": 1, "Linke": 1, "Bürgerliste": 1 }
+            heading: "Modern, transparent & einfache Ämtergänge", 
+            explanation: "Die Verwaltung soll durch Digitalisierung Ämtergänge spürbar vereinfachen und Termine unkompliziert online ermöglichen, um Zeit und Wege zu sparen.", 
+            score: { "Bürgerliste": 1 }
         },
         { 
-            heading: "Schrittweise Modernisierung & Bürgerbüro", 
-            explanation: "Einrichtung eines Bürgerbüros, Erweiterung der Öffnungszeiten und ein schrittweiser, bürgernaher Ausbau digitaler Verwaltungsleistungen.", 
-            score: { "SPD": 1 }
-        },
-        { 
-            heading: "Agile Verwaltung & Once-Only Prinzip", 
-            explanation: "Proaktives Rathaus ohne Papier & Trägheit. Daten werden nur einmal abgefragt (Once-Only). Die Verwaltung wird zum effizienten Partner auf Augenhöhe.", 
-            score: { "ÖDP": 1, "UW": 1 }
-        },
-        { 
-            heading: "Hybrid: Digital, aber mit Vor-Ort-Garantie", 
-            explanation: "Digitalisierung ist wichtig, aber das Rathaus muss für alle Bürger weiterhin persönlich und ohne vorherige Terminvereinbarung zugänglich bleiben.", 
-            score: { "ÖDP": 1, "UW": 1 }
-        },
-        { 
-            heading: "Transparenz durch Live-Übertragungen", 
-            explanation: "Wir fordern, Stadtratssitzungen live im Internet zu übertragen und digital zu archivieren, um die politische Teilhabe für alle Bürger zu erhöhen.", 
-            score: { "Freie Wähler": 1, "Linke": 1, "Grüne": 1, "AfD": 1 }
-        },
-        { 
-            heading: "Schlanke Verwaltung & Mitbestimmung", 
-            explanation: "Fokus auf radikale Vereinfachung der Prozesse, mehr direkte Bürgerbeteiligung und volle Transparenz bei allen politischen Beschlüssen.", 
-            score: { "AfD": 1, "Grüne": 1 }
+            heading: "Die Stadt als bürgernaher Dienstleister", 
+            explanation: "Wir wollen die Verwaltung zu einem noch bürgernäheren und besser erreichbaren Dienstleister für alle Schwandorfer umgestalten.", 
+            score: { "CSU": 1 }
         }
-                ] 
-        },
+    ] 
+},
     
         // Frage 7
+{ 
+    text: "👨‍👩‍👧‍👦 Familie: Wo ist der größte Handlungsbedarf bei Schulen und Betreuung?", 
+    answers: [
         { 
-        text: "👨‍👩‍👧‍👦 Familie: Wo ist der größte Handlungsbedarf bei Schulen und Betreuung?", 
-        answers: [
-        { 
-            heading: "Mittelschulkonzept & Kita-Ausbau", 
-            explanation: "Wir setzen das bestehende Mittelschulkonzept konsequent um, stärken die Mittagsbetreuung und schaffen bedarfsgerechte Kitas in allen Ortsteilen.", 
-            score: { "CSU": 1, "Bürgerliste": 1, "Freie Wähler": 1 }
+            heading: "Mittelschulkonzept & Stärkung der Mittagsbetreuung", 
+            explanation: "Priorität haben die Umsetzung des Mittelschulkonzepts, der Ausbau bedarfsgerechter Kitas und eine verlässliche Mittagsbetreuung für unsere Kinder.", 
+            score: { "Bürgerliste": 1 }
         },
         { 
-            heading: "Schulstandorte sichern & Kreuzberg-Neubau", 
-            explanation: "Dachelhofen sichern, Grundschule Kreuzberg erhalten und eine neue, kleine Kreuzberg-Mittelschule errichten sowie moderne Ganztagsangebote schaffen.", 
-            score: { "SPD": 1, "Freie Wähler": 1 }
-        },
-        { 
-            heading: "Bildungsgerechtigkeit & Wohnraum", 
-            explanation: "Für uns bedeutet Familienpolitik: Bildungsgerechtigkeit durch mehr Kitaplätze und die Sicherung von bezahlbarem Wohnraum für junge Familien.", 
-            score: { "Freie Wähler": 1 }
-        },
-        { 
-            heading: "Spezial-Umbau: Grundschule & Kita", 
-            explanation: "Nach dem Mittelschul-Neubau soll das Kreuzberg-Gebäude gezielt zur Grundschule mit integriertem Kindergarten umgebaut werden.", 
-            score: { "UW": 1 }
-        },
-        { 
-            heading: "Ganzheitliche Bildung & Schul-Sozialarbeit", 
-            explanation: "Wir fordern Sozialpädagogen an jeder Schule, flexible Betreuungsmodelle und eine inklusive Bildung, die niemanden zurücklässt.", 
-            score: { "ÖDP": 1, "Grüne": 1, "Linke": 1 }
-        },
-        { 
-            heading: "Sozialer Schutz & Frauenhaus", 
-            explanation: "Familienpolitik bedeutet auch Schutz: Wir fordern die Einrichtung eines Frauenhauses in Schwandorf und bezahlbare Kitas für alle Einkommensklassen.", 
-            score: { "Linke": 1, "UW": 1 }
-        },
-        { 
-            heading: "Sichere Wege & 'Offene' Betreuung", 
-            explanation: "Priorität für sichere Schulwege und innovative Konzepte wie eine unkomplizierte Kurzzeit-Kinderbetreuung während der Erledigungen in der Stadt.", 
-            score: { "Grüne": 1 }
+            heading: "Bedarfsgerechte Plätze für Jung und Alt", 
+            explanation: "Wir müssen garantieren, dass Betreuungsplätze für alle Generationen bedarfsgerecht vorhanden sind, und die Schullandschaft zukunftsfähig weiterentwickeln.", 
+            score: { "CSU": 1 }
         }
-                ] 
-        },
+    ] 
+},
     
         // Frage 8
+{ 
+    text: "🤝 Ehrenamt: Wie stärken wir die Bürgerbeteiligung in Schwandorf?", 
+    answers: [
         { 
-        text: "🤝 Ehrenamt: Wie stärken wir die Bürgerbeteiligung in Schwandorf?", 
-        answers: [
-        { 
-            heading: "Bürgerhaushalt & Direkter Dialog", 
-            explanation: "Fortführung des Bürgerhaushalts, enger Dialog mit Vereinen und ein transparenter Ausbau der Bürgerbeteiligung bei großen Projekten.", 
-            score: { "CSU": 1, "Bürgerliste": 1, "ÖDP": 1, "SPD": 1, "Freie Wähler": 1 }
+            heading: "Attraktive Gestaltung des bestehenden Angebots", 
+            explanation: "Wir verfügen bereits über ein breites Angebot an Beteiligungsmöglichkeiten. Dieses müssen wir künftig noch attraktiver gestalten, um mehr Bürger zur Mitwirkung zu motivieren.", 
+            score: { "Bürgerliste": 1 }
         },
         { 
-            heading: "Jugendparlament & Bürgerräte", 
-            explanation: "Wir fordern ein Jugendparlament mit eigenem Budget, die Einführung von Bürgerräten und Live-Streams aus dem Stadtrat für maximale Transparenz.", 
-            score: { "ÖDP": 1, "Grüne": 1, "Linke": 1 }
-        },
-        { 
-            heading: "Klare Ansprechpartner & Vereins-Support", 
-            explanation: "Wir schaffen klare Ansprechpartner im Rathaus für Vereine und Initiativen, um das Ehrenamt durch zentrale Anlaufstellen aktiv zu unterstützen.", 
-            score: { "Freie Wähler": 1, "SPD": 1, "UW": 1 }
-        },
-        { 
-            heading: "Sportamt & Vereins-Marketing", 
-            explanation: "Einrichtung eines eigenen Sportamts im Rathaus und Schaffung von Formaten, in denen Vereine sich zur Nachwuchsgewinnung der Öffentlichkeit präsentieren können.", 
-            score: { "UW": 1, "Linke": 1 }
-        },
-        { 
-            heading: "Ehrenamts-Bonus & Gemeinschaftsprojekte", 
-            explanation: "Einführung eines finanziellen Ehrenamtsbonus, Aufbau einer Freiwilligenbörse und stärkere finanzielle Unterstützung für engagierte Bürger. Aufbau einer Freiwilligenbörse und Projekte wie die \"Essbare Stadt\" als Gemeinschaftsaufgabe zur Stärkung des Zusammenhalts.", 
-            score: { "Grüne": 1, "Freie Wähler": 1 }
-        },
-        { 
-            heading: "Direkte Demokratie & Bürgerentscheide", 
-            explanation: "Hürden für Bürgerentscheide senken: Bei teuren Großprojekten sollen die Schwandorfer direkt abstimmen und das letzte Wort haben.", 
-            score: { "AfD": 1 }
+            heading: "Bürgerhaushalt & Direkte Projektbeteiligung", 
+            explanation: "Wir stärken die Beteiligung durch die Fortführung des Bürgerhaushalts, den engen Dialog mit dem Ehrenamt und die direkte Einbeziehung bei Projekten wie Erneuerbaren Energien.", 
+            score: { "CSU": 1 }
         }
-                ] 
-        },
+    ] 
+},
 
         // Frage 9
+{ 
+    text: "🚲 Verkehr: Wie sieht die Mobilität der Zukunft in Schwandorf aus?", 
+    answers: [
         { 
-        text: "🚲 Verkehr: Wie sieht die Mobilität der Zukunft in Schwandorf aus?", 
-        answers: [
-        { 
-            heading: "Multimodaler Mix & Infrastruktur", 
-            explanation: "Wir setzen auf eine Symbiose: Ausbau des Radwegenetzes, barrierefreier Bahnhof und wichtige Straßenprojekte wie die Globusspange oder die zweite Naabbrücke.", 
-            score: { "CSU": 1, "Bürgerliste": 1, "UW": 1 }
+            heading: "Bahnausbau & Vernetzung mit Regensburg", 
+            explanation: "Wir setzen auf eine Symbiose aus Auto und Rad, einen barrierefreien Bahnhof sowie eine deutlich bessere ÖPNV-Anbindung an den Wirtschaftsraum Regensburg.", 
+            score: { "Bürgerliste": 1 }
         },
         { 
-            heading: "Bahnhaltepunkt & Ortsteil-Vernetzung", 
-            explanation: "Neuen Bahnhaltepunkt voranbringen, Haltestellen an der Berufsschule verbessern und Ortsteile durch einen starken ÖPNV besser vernetzen.", 
-            score: { "SPD": 1, "Grüne": 1, "Linke": 1 } 
-        },
-        { 
-            heading: "Radverkehrs-Offensive & Schnelltrassen", 
-            explanation: "Vorrang für das Rad! Wir fordern eigene Rad-Schnelltrassen, E-Stadtbusse und eine bessere Verzahnung der Fahrpläne ins Umland.", 
-            score: { "Grüne": 1, "ÖDP": 1, "Linke": 1, "UW": 1 }
-        },
-        { 
-            heading: "On-Demand-Shuttles & Vernetzung", 
-            explanation: "Flexibel ohne eigenes Auto durch On-Demand-Shuttles und Knotenpunkte, die Bus, Bahn & Rad digital vernetzen – auch für das Umland.", 
-            score: { "Freie Wähler": 1 } 
-        },
-        { 
-            heading: "Tempo 30 & Sicherheit in Wohngebieten", 
-            explanation: "Für mehr Lebensqualität und Sicherheit auf Schulwegen fordern wir flächendeckend Tempo 30 in allen Schwandorfer Wohngebieten.", 
-            score: { "Freie Wähler": 1 } 
-        },
-        { 
-            heading: "Pendler-Spezial: Regensburg & Bahn", 
-            explanation: "Schwandorf muss besser an Regensburg angebunden werden. Wir fordern eine Optimierung der Bahnanbindung und einen konsequenten Ausbau für Pendler.", 
-            score: { "Bürgerliste": 1, "UW": 1, "CSU": 1 }
-        },
-        { 
-            heading: "Carsharing & Innovative Mobilität", 
-            explanation: "Wir wollen den Individualverkehr durch attraktive Carsharing-Angebote ergänzen und die Mobilität bedarfsgerecht und autofrei weiterentwickeln.", 
-            score: { "Linke": 1, "Grüne": 1 }
-        },
-        { 
-            heading: "Leistungsfähige Straßen & Brücken", 
-            explanation: "Der Fokus muss auf dem Ausbau der Straßeninfrastruktur und Brücken liegen, um eine leistungsfähige Verbindung für den gesamten Landkreis zu sichern.", 
-            score: { "AfD": 1 }
+            heading: "Globusspange & Zweite Naabbrücke", 
+            explanation: "Für einen flüssigen Verkehr brauchen wir den Mix: Ausbau des Radwegenetzes, aber auch wichtige Straßenprojekte wie die Globusspange und eine zweite Naabbrücke.", 
+            score: { "CSU": 1 }
         }
-            ]
-        },
+    ] 
+},
     
         // Frage 10
+{ 
+    text: "🍺 Schmidt-Bräu-Areal: Wie soll dieses zentrale Gelände genutzt werden?", 
+    answers: [
         { 
-        text: "🍺 Schmidt-Bräu-Areal: Wie soll dieses zentrale Gelände genutzt werden?", 
-        answers: [
-        { 
-            heading: "Lebendiges Stadtquartier (Wohnen & Kultur)", 
-            explanation: "Wir entwickeln ein neues Quartier: Wohnen, Kultur und Begegnung werden verbunden, um neue Impulse für die gesamte Innenstadt zu setzen.", 
-            score: { "SPD": 1 }
+            heading: "Entwicklung eines abgestimmten Konzepts", 
+            explanation: "Für das Areal muss ein fundiertes und abgestimmtes Konzept entwickelt werden, um dieses städtebauliche Juwel sinnvoll und nachhaltig für die Stadt zu nutzen.", 
+            score: { "Bürgerliste": 1 }
         },
         { 
-            heading: "Kultur- & Bildungszentrum umsetzen", 
-            explanation: "Wir realisieren zügig das beschlossene Konzept: Stadtbibliothek, Musikschule, VHS und Bürgersaal ziehen an den Marktplatz, ergänzt durch Wohnungsbau.", 
-            score: { "Bürgerliste": 1, "ÖDP": 1, "CSU": 1, "SPD": 1 }
-        },
-        { 
-            heading: "Innenstadt-Magnet & Frequenzbringer", 
-            explanation: "Das Areal braucht 'Magneten', die Menschen in die Stadt ziehen. Wir fordern einen Mix aus öffentlicher Nutzung, Wohnungen und Gastronomie.", 
-            score: { "ÖDP": 1, "Grüne": 1 }
-        },
-        { 
-            heading: "Pocket Park & Grünes Wohnen", 
-            explanation: "Ein Rückzugsort im Zentrum: Ein \"Pocket Park\" kombiniert mit Wohnen und kleinteiligem Gewerbe wie Handwerk oder Cafés für mehr Lebensqualität.", 
-            score: { "Freie Wähler": 1 }
-        },
-        { 
-            heading: "Bezahlbares Wohnen & Bürgerhaus", 
-            explanation: "Wir priorisieren auf dem Gelände den kommunalen Wohnungsbau für günstige Mieten und schaffen ein Bürgerhaus als Heimat für Vereine und Begegnung.", 
-            score: { "Linke": 1, "SPD": 1 }
-        },
-        { 
-            heading: "Stopp für Prestigeprojekte", 
-            explanation: "Wir lehnen teure Großprojekte auf dem Areal ab und fordern eine sparsame Haushaltsführung, die sich an den realen Bedürfnissen der Bürger orientiert.", 
-            score: { "AfD": 1 }
-        },
-        { 
-            heading: "Bürgerdialog & Neue Denkansätze", 
-            explanation: "Die Nachnutzung muss im direkten Dialog mit den Bürgern neu gedacht werden, um eine wirklich wertvolle und nachhaltige Entwicklung zu garantieren.", 
-            score: { "CSU": 1, "UW": 1 }
+            heading: "Verantwortungsvolle Neunutzung im Bürgerdialog", 
+            explanation: "Die Nachnutzung dieses zentralen Areals muss verantwortungsvoll und im engen Dialog mit den Bürgern neu gedacht werden, um eine wertvolle Entwicklung zu sichern.", 
+            score: { "CSU": 1 }
         }
-                ]
-        },
-
-        // Frage 11
-        { 
-        text: "🏥 Gesundheit & Soziales: Wie sichern wir die Versorgung 2026?", 
-        answers: [
-        { 
-            heading: "Ärztliche Versorgung & Fachärzte", 
-            explanation: "Wir setzen uns aktiv für die Ansiedlung neuer Praxen und die langfristige Sicherung der bestehenden Haus- und Facharztversorgung ein.", 
-            score: { "CSU": 1, "Bürgerliste": 1, "SPD": 1 }
-        },
-        { 
-            heading: "Medizinisches Versorgungs Zentrum & Arzt-Willkommenspaket", 
-            explanation: "Ein MVZ sichert die Gesundheit vor Ort, lockt Fachärzte nach Schwandorf und bietet Patienten kurze Wege – effizient und zentral. Ärzte-Anstellung im MVZ ohne Risiko & Stress. Die Stadt hilft aktiv bei Praxisräumen, Kita-Plätzen und Wohnungen, um Mediziner sicher nach Schwandorf zu holen. ", 
-            score: { "Freie Wähler": 1 } 
-        },
-        { 
-            heading: "Zentrales Ärztehaus / Medizinisches Versorgungs Zentrum (MVZ)", 
-            explanation: "Wir fördern ein MVZ in zentraler Lage, um Fachärzte nach Schwandorf zu locken und kurze Wege für Patienten zu schaffen.", 
-            score: { "SPD": 1, "ÖDP": 1, "Grüne": 1, "Freie Wähler": 1 }
-        },
-        { 
-            heading: "Frauenhaus für Schwandorf", 
-            explanation: "Soziale Sicherheit bedeutet Schutz: Wir fordern als einzige Kraft die Einrichtung eines Frauenhauses in Schwandorf, um Betroffenen vor Ort Hilfe zu bieten.", 
-            score: { "UW": 1 }
-        },
-        { 
-            heading: "Kommunale Praxis & Senioren-Campus", 
-            explanation: "Wir wollen eine städtisch geführte Facharztpraxis und Wohnanlagen für Senioren mit direktem Zugang zu medizinischen Dienstleistern.", 
-            score: { "Grüne": 1 }
-        },
-        { 
-            heading: "Anwerbe-Bonus & Kindernotfallhilfe", 
-            explanation: "Günstige Praxisräume als Anreiz für junge Mediziner und eine massive Verbesserung der medizinischen Versorgung für Kinder in Notfällen.", 
-            score: { "Linke": 1 }
-        },
-        { 
-            heading: "Gesundheit vor Ort & Klinik-Erhalt", 
-            explanation: "Schutz der wohnortnahen Krankenhäuser vor Schließungen und eine bessere Ausstattung für THW, Feuerwehr und Rettungsdienste.", 
-            score: { "Freie Wähler": 1, "AfD": 1, "ÖDP": 1 }
-        }
-            ] 
-        }
+    ] 
+},
     ];
 
     let scores =            { "CSU": 0, "SPD": 0, "Grüne": 0, "Freie Wähler": 0, "AfD": 0, "ÖDP": 0, "UW": 0, "Linke": 0, "Bürgerliste": 0 
@@ -859,14 +366,30 @@ function selectOption(scoreObj) {
         resultsDiv.classList.remove("hidden");
         
         const list = document.getElementById("score-list");
-        const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-        list.innerHTML = sorted.map(([party, score]) => {
+        
+        // Wir filtern nur die beiden Duellanten heraus
+        const duellanten = [
+            { name: "Andreas Feller", party: "Bürgerliste", img: "feller.png" },
+            { name: "Andreas Wopperer", party: "CSU", img: "wopperer.png" }
+        ];
+
+        list.innerHTML = duellanten.map(cand => {
+            const score = scores[cand.party] || 0;
             const percentage = Math.round((score / questions.length) * 100);
-            return `<div class="party-score">
-                <div class="party-logo"><img src="${partyLogos[party]}" alt="${party}"></div>
-                <div class="party-info"><span style="font-weight:700">${party}</span><span class="party-percent">${percentage}%</span></div>
-            </div>`;
-        }).join("");
+            
+            return `
+                <div class="party-score duell-result">
+                    <div class="party-logo"><img src="${cand.img}" alt="${cand.name}" style="border-radius:50%; object-fit:cover;"></div>
+                    <div class="party-info">
+                        <span style="font-weight:700">${cand.name}</span>
+                        <span class="party-percent">${percentage}% Übereinstimmung</span>
+                    </div>
+                </div>
+                <div class="result-bar-bg">
+                    <div class="result-bar-fill" style="width: ${percentage}%"></div>
+                </div>
+            `;
+        }).join("<div style='margin: 20px 0; opacity: 0.3; text-align:center;'>VS</div>");
     }, 600); 
 }
 
@@ -1057,5 +580,4 @@ content = `
 </script>
 </body>
 </html>
-
 
